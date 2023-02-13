@@ -1,19 +1,25 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import NavBar from "./components/Navbar";
 import AuthUser from './components/AuthUser';
 import SuccessAuth from './components/SuccessAuth';
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
 function App() {
+
     return (
         <div className="App">
-            <header className="App-header">
+            <NavBar/>
+            <div className="App-header">
+
                 <Router>
                     <Routes>
-                        <Route path={'/'} element={<AuthUser/>}/>
+                        <Route path={'/login'} element={<AuthUser/>}/>
                         <Route path={'/auth'} element={<SuccessAuth/>}/>
                     </Routes>
                 </Router>
-            </header>
+            </div>
+
+
         </div>
     );
 }
