@@ -4,6 +4,7 @@ import {supabase} from "../supabase/supabaseClient.js";
 
 const SuccessAuth = () => {
     const [user, setUser] = useState({});
+    supabase.auth.getUser();
     const navigate = useNavigate();
     useEffect(() => {
         return () => {
@@ -29,11 +30,24 @@ const SuccessAuth = () => {
 
     return (
         <div>
+            {Object.keys(user).length !== 0 ?
+                <>
+                <h1>Success</h1>
             <button
                 onClick={() => logOutUser()}
             >
                 Log Out
             </button>
+                </>
+                :
+                <>
+                <h1>User is not logged in</h1>
+                    <button onClick={() => {
+                        navigate('/');
+                    }}>Go Home</button>
+                </>
+
+            }
         </div>
 
     );
