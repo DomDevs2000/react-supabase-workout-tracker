@@ -32,19 +32,20 @@ const SuccessAuth = () => {
         <div>
             {Object.keys(user).length !== 0 ?
                 <>
-                <h1>Success</h1>
-            <button
-                onClick={() => logOutUser()}
-            >
-                Log Out
-            </button>
+                    <h1>Success</h1>
+                    <button
+                        onClick={() => logOutUser()}
+                    >
+                        Log Out
+                    </button>
                 </>
                 :
                 <>
-                <h1>User is not logged in</h1>
+                    <h1>User is not logged in</h1>
                     <button onClick={() => {
                         navigate('/');
-                    }}>Go Home</button>
+                    }}>Go Home
+                    </button>
                 </>
 
             }
