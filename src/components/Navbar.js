@@ -1,6 +1,25 @@
 import React, {useEffect, useState} from 'react';
-const Navbar = () => {
+import supabase from "../supabase/supabaseClient";
+import {Link} from "react-router-dom";
 
+const Navbar = () => {
+    const [user, setUser] = useState({});
+    supabase.auth.getUser();
+    // const navigate = useNavigate();
+    useEffect(() => {
+        return () => {
+            async function getUserData() {
+                await supabase.auth.getUser().then((value) => {
+                    if (value.data?.user) {
+                        setUser(value.data.user);
+                        console.log(value.data.user);
+                    }
+                });
+            }
+
+            getUserData();
+        };
+    }, []);
     return <>
         <header className="text-white bg-red-600">
             <nav className=" py-5 px-4 flex flex-col gap-4 items-center sm:flex-row">
@@ -13,15 +32,23 @@ const Navbar = () => {
                         <a href="/#" className="cursor-pointer">
                             <button>Create</button>
                         </a>
-                    </li><li>
-                    <a href="/login" className="cursor-pointer">
-                        <button>Login</button>
-                    </a>
-                </li>
+                    </li>
+                    <li>
+                        {user.length <=0 ?
+                        <a href="/login" className="cursor-pointer">
+                            <button>Login</button>
+                        </a>
+                            : <div></div>}
 
-                        <li className="cursor-pointer">Logout</li>
-
-
+                    </li>
+                    {Object.keys(user).length > 0 ?
+                        <li className="cursor-pointer" onClick={() => {
+                            supabase.auth.signOut();
+                        }
+                        }>Logout</li>
+                        : <a href="/login" className="cursor-pointer">
+                            <button>Login</button>
+                        </a>}
                 </ul>
             </nav>
         </header>
