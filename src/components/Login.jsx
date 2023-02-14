@@ -68,8 +68,8 @@ const Login = () => {
                     type="submit"
                     className="mt-6 py-2 px-6 rounded-sm self-start text-sm
       text-white bg-red-600 duration-200 border-solid
-      border-2 border-transparent hover:border-at-light-green hover:bg-white
-      hover:text-at-light-green"
+      border-2 border-transparent hover:border-red-600 hover:bg-white
+      hover:text-red-600"
                 >
                     Login
                 </button>
