@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {supabase} from "../supabase/supabaseClient.js";
+import supabase from "../supabase/supabaseClient.js";
 
 const SuccessAuth = () => {
     const [user, setUser] = useState({});
