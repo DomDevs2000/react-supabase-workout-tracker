@@ -1,10 +1,10 @@
 import './App.css';
-import NavBar from "./components/Navbar";
 import Login from './components/Login.jsx';
 import SuccessAuth from './components/SuccessAuth';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Register from "./components/Register";
 import CreateWorkout from "./components/CreateWorkout";
+import NavBar from "./components/NavBar";
 
 function App() {
 

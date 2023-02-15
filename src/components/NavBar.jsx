@@ -30,7 +30,7 @@ const Navbar = () => {
                 <ul className="flex flex-1 justify-end gap-x-10">
                     <li>
                         <a href="/create" className="cursor-pointer">
-                            <button>Create</button>
+                            <button>Track Workout</button>
                         </a>
                     </li>
                     <li>
