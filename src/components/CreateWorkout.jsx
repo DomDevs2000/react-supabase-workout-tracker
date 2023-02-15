@@ -55,14 +55,13 @@ const CreateWorkout = () => {
         item.id));
 
     // create workout
-
     const createWorkout = async () => {
         try {
             const {error} = await supabase.from("workouts").insert([
                 {
-                    workoutName: workoutName.value,
-                    workoutType: workoutType.value,
-                    exercises: exercises.value,
+                    workoutName: workoutName,
+                    workoutType: workoutType,
+                    exercises: exercises,
                 },
             ]);
             if (error) throw error;
@@ -89,15 +88,17 @@ const CreateWorkout = () => {
     };
     return (
         <div className="max-w-screen-md mx-auto px-4 py-10">
+            {/*{!statusMsg ?*/}
             {/*<div*/}
-            {/*    v-if="statusMsg || errorMsg"*/}
-            {/*    class="mb-10 p-4 bg-light-grey rounded-md shadow-lg"*/}
+
+            {/*    className="mb-10 p-4 bg-light-grey rounded-md shadow-lg"*/}
             {/*>*/}
-            {/*    <p class="text-at-light-green">*/}
+            {/*    <p className="text-at-light-green">*/}
             {/*        {{ statusMsg }}*/}
             {/*    </p>*/}
-            {/*    <p class="text-red-500">{{ errorMsg }}</p>*/}
+            {/*    <p className="text-red-500">{{ errorMsg }}</p>*/}
             {/*</div>*/}
+            {/*    : <div></div>}*/}
 
             <div className="p-8 flex items-start bg-light-grey rounded-md shadow-lg">
                 <form onSubmit={createWorkout}
@@ -187,7 +188,7 @@ const CreateWorkout = () => {
                                 </div>
                                 <img
                                     onClick={() => deleteExercise(getId)}
-                                    src="/assets/images/trash-light.png"
+                                    src="../assets/images/trash-light.png"
                                     className="h-4 w-auto absolute -left-5 cursor-pointer"
                                     alt=""
                                 />
@@ -211,7 +212,7 @@ const CreateWorkout = () => {
 
                             >
                                 <div className="flex flex-col md:w-1/3">
-                                    <label html="cardio-type" className="mb-1 text-sm text-red-600"
+                                    <label htmlFor="cardio-type" className="mb-1 text-sm text-red-600"
                                     >Type
                                     </label>
                                     <select
@@ -262,7 +263,7 @@ const CreateWorkout = () => {
                                 </div>
                                 <img
                                     onClick={() => deleteExercise(getId)}
-                                    src="/assets/images/trash-light-green.png"
+                                    src="../assets/images/trash-light.png"
                                     className="h-4 w-auto absolute-left-5 cursor-pointer"
                                     alt=""
                                 />
