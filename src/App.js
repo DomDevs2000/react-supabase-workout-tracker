@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Register from "./components/Register";
 import CreateWorkout from "./components/CreateWorkout";
 import NavBar from "./components/NavBar";
+import Home from "./components/Home";
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
                 <Routes>
                     <Route path={'/login'} element={<Login/>}/>
                     <Route path={'/register'} element={<Register/>}/>
-                    <Route path={'/'}/>
+                    <Route path={'/'} element={<Home/>}/>
                     <Route path={'/auth'} element={<SuccessAuth/>}/>
                     <Route path={'/create'} element={<CreateWorkout/>}/>
                 </Routes>
