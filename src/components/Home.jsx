@@ -1,24 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import supabase from "../supabase/supabaseClient";
 import {Link} from "react-router-dom";
 
 const Home = () => {
-    const [data, setData] = useState('');
-    let [dataLoaded, setDataLoaded] = useState(null);
 
-    const getData = async () => {
-        try {
-            const {data: workouts, error} = await supabase.from("workouts").select('*');
-            if (error) throw error;
-            // workouts = setData;
-            // dataLoaded = true;
-            console.log(data);
-        } catch (error) {
-            console.warn(error.message);
-        }
-    };
+    const [data, setData] = useState([]);
+    const [dataLoaded, setDataLoaded] = useState(null);
 
-    getData();
+    useEffect(() => {
+        return async () => {
+            try {
+                const {data: workouts, error} = await supabase.from("workouts").select('*');
+                if (error) {
+                    throw error;
+                }
+                setData(workouts);
+                setDataLoaded(true);
+
+            } catch (error) {
+                console.warn(error.message);
+            }
+        };
+    }, [dataLoaded]);
 
     return (
         <>
@@ -61,15 +64,22 @@ const Home = () => {
                                 />
                             }
 
+
                             <p
                                 className="mt-6 py-1 px-3 text-xs text-white bg-red-600 shadow-md rounded-lg"
                             >
-                                {data.workoutType}
+                                {data.map((data => {
+                                    return data.workoutType;
+                                }))}
                             </p>
 
                             <h1 className="mt-8 mb-2 text-center text-xl text-red-600">
-                                {data.workoutName}
+                                {data.map((data => {
+                                    return data.workoutName;
+                                }))}
                             </h1>
+
+
                         </Link>
                     </div>
                 }
