@@ -22,7 +22,47 @@ const Home = () => {
             }
         };
     }, [dataLoaded]);
+    const renderWorkoutCard = data.map((data => {
+        return (
 
+                <Link className="flex flex-col items-center bg-light-grey p-8 shadow-md cursor-pointer"
+                    // to={`/view-workout${workoutId}`}>
+                      to={'/test'}>
+
+                    {data.workoutType === 'cardio' ?
+                        <img
+                            src="../assets/images/running-light.png"
+                            className="h-24 w-auto"
+                            alt=""
+                        />
+
+                        :
+
+                        <img
+                            src="../assets/images/dumbbell-light.png"
+                            className="h-24 w-auto"
+                            alt=""
+                        />
+                    }
+
+
+                    <p
+                        className="mt-6 py-1 px-3 text-xs text-white bg-red-600 shadow-md rounded-lg"
+                    >
+                        {data.workoutType}
+
+                    </p>
+
+                    <h1 className="mt-8 mb-2 text-center text-xl text-red-600">
+
+                        {data.workoutName}
+
+                    </h1>
+
+
+                </Link>
+    )
+    }));
     return (
         <>
             <div className="container mt-10 px-4">
@@ -43,45 +83,7 @@ const Home = () => {
 
                     :
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        <Link className="flex flex-col items-center bg-light-grey p-8 shadow-md cursor-pointer"
-                            // to={`/view-workout${workoutId}`}>
-                              to={'/test'}>
-
-                            {data.workoutType === 'cardio' ?
-                                <img
-                                    src="../assets/images/running-light.png"
-                                    className="h-24 w-auto"
-                                    alt=""
-                                />
-
-                                :
-
-                                <img
-                                    src="../assets/images/dumbbell-light.png"
-                                    className="h-24 w-auto"
-                                    alt=""
-                                />
-                            }
-
-
-                            <p
-                                className="mt-6 py-1 px-3 text-xs text-white bg-red-600 shadow-md rounded-lg"
-                            >
-                                {data.map((data => {
-                                    return data.workoutType;
-                                }))}
-                            </p>
-
-                            <h1 className="mt-8 mb-2 text-center text-xl text-red-600">
-                                {data.map((data => {
-                                    return data.workoutName;
-                                }))}
-                            </h1>
-
-
-                        </Link>
-                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">{renderWorkoutCard}</div>
                 }
             </div>
         </>
