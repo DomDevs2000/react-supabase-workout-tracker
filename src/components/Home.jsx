@@ -22,12 +22,12 @@ const Home = () => {
             }
         };
     }, [dataLoaded]);
+
     const renderWorkoutCard = data.map((data => {
         return (
 
                 <Link className="flex flex-col items-center bg-light-grey p-8 shadow-md cursor-pointer"
-                    // to={`/view-workout${workoutId}`}>
-                      to={'/test'}>
+                    to={`/workout/${data.id}`}>
 
                     {data.workoutType === 'cardio' ?
                         <img
