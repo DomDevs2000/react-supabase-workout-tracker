@@ -13,6 +13,8 @@ const CreateWorkout = () => {
     const [pace, setPace] = useState("");
     const [distance, setDistance] = useState("");
     const [duration, setDuration] = useState("");
+    const [userId, setUserId] = useState("");
+
 
     const exercises = [];
     const errorMsg = [];
@@ -54,11 +56,20 @@ const CreateWorkout = () => {
     const getId = exercises.map((item, index) => (
         item.id));
 
+    async function getUserId() {
+        await supabase.auth.getUser().then((value) => {
+            if (value.data?.user) {
+               setUserId(value.data.user.id);
+            }
+        });
+    }
+    getUserId()
     // create workout
     const createWorkout = async () => {
         try {
             const {error} = await supabase.from("workouts").insert([
                 {
+                    userId: userId,
                     workoutName: workoutName,
                     workoutType: workoutType,
                     exercises: exercises,

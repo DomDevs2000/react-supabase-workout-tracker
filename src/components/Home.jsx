@@ -6,11 +6,29 @@ const Home = () => {
 
     const [data, setData] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(null);
+    const [userId, setUserId] = useState('');
+
+
+    useEffect(() => {
+        return () => {
+            async function getUserId() {
+                await supabase.auth.getUser().then((value) => {
+                    if (value.data?.user) {
+                        setUserId(value.data.user.id)
+                        console.log(value.data.user);
+                    }
+                });
+            }
+            getUserId()
+        };
+    }, [dataLoaded]);
+
+console.log(userId);
 
     useEffect(() => {
         return async () => {
             try {
-                const {data: workouts, error} = await supabase.from("workouts").select('*');
+                const {data: workouts, error} = await supabase.from("workouts").select('*').eq('userId', '5bbfa90a-61ee-40f0-afc9-1ad11a7c8c65')
                 if (error) {
                     throw error;
                 }
@@ -21,7 +39,9 @@ const Home = () => {
                 console.warn(error.message);
             }
         };
-    }, [dataLoaded]);
+    }, []);
+
+    console.log(data)
 
     const renderWorkoutCard = data.map((data => {
         return (
@@ -63,6 +83,7 @@ const Home = () => {
                 </Link>
     )
     }));
+
     return (
         <>
             <div className="container mt-10 px-4">
