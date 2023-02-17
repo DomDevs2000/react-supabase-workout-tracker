@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import supabase from "../supabase/supabaseClient";
-import {Link} from "react-router-dom";
 
 const Navbar = () => {
     const [user, setUser] = useState({});
@@ -34,10 +33,10 @@ const Navbar = () => {
                         </a>
                     </li>
                     <li>
-                        {user.length <=0 ?
-                        <a href="/login" className="cursor-pointer">
-                            <button>Login</button>
-                        </a>
+                        {user.length <= 0 ?
+                            <a href="/login" className="cursor-pointer">
+                                <button>Login</button>
+                            </a>
                             : <div></div>}
 
                     </li>

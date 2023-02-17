@@ -52,18 +52,19 @@ const CreateWorkout = () => {
         }, 5000);
     };
 
-   //get exercise id
+    //get exercise id
     const getId = exercises.map((item, index) => (
         item.id));
 
     async function getUserId() {
         await supabase.auth.getUser().then((value) => {
             if (value.data?.user) {
-               setUserId(value.data.user.id);
+                setUserId(value.data.user.id);
             }
         });
     }
-    getUserId()
+
+    getUserId();
     // create workout
     const createWorkout = async () => {
         try {

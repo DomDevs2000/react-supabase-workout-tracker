@@ -13,10 +13,10 @@ const Register = () => {
 
         try {
             setLoading(true);
-            const { data, error } = await supabase.auth.signUp({
+            const {data, error} = await supabase.auth.signUp({
                 email: email,
                 password: password,
-            })
+            });
             if (error) throw error;
             navigate('/login');
         } catch (error) {
@@ -40,7 +40,7 @@ const Register = () => {
                 <h1 className="text-3xl text-red-600 mb-4">Register</h1>
 
                 <div className="flex flex-col mb-2">
-                    <label  className="mb-1 text-sm text-red-600">Email</label>
+                    <label className="mb-1 text-sm text-red-600">Email</label>
                     <input
                         type="text"
                         required
@@ -52,7 +52,7 @@ const Register = () => {
                 </div>
 
                 <div className="flex flex-col mb-2">
-                    <label  className="mb-1 text-sm text-red-600">Password</label>
+                    <label className="mb-1 text-sm text-red-600">Password</label>
                     <input
                         type="password"
                         required
@@ -64,7 +64,7 @@ const Register = () => {
                 </div>
 
                 <div className="flex flex-col mb-2">
-                    <label  className="mb-1 text-sm text-red-600"
+                    <label className="mb-1 text-sm text-red-600"
                     >Confirm Password</label
                     >
                     <input
@@ -92,7 +92,7 @@ const Register = () => {
                     Already have an account? <span className="text-red-600">Login</span>
                 </Link>
             </form>
-        </div>)
+        </div>);
 };
 
 export default Register;

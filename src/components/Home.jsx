@@ -14,21 +14,25 @@ const Home = () => {
             async function getUserId() {
                 await supabase.auth.getUser().then((value) => {
                     if (value.data?.user) {
-                        setUserId(value.data.user.id)
+                        setUserId(value.data.user.id);
                         console.log(value.data.user);
                     }
                 });
             }
-            getUserId()
+
+            getUserId();
         };
     }, [dataLoaded]);
 
-console.log(userId);
+    console.log(userId);
 
     useEffect(() => {
         return async () => {
             try {
-                const {data: workouts, error} = await supabase.from("workouts").select('*').eq('userId', '5bbfa90a-61ee-40f0-afc9-1ad11a7c8c65')
+                const {
+                    data: workouts,
+                    error
+                } = await supabase.from("workouts").select('*').eq('userId', '5bbfa90a-61ee-40f0-afc9-1ad11a7c8c65');
                 if (error) {
                     throw error;
                 }
@@ -41,47 +45,47 @@ console.log(userId);
         };
     }, []);
 
-    console.log(data)
+    console.log(data);
 
     const renderWorkoutCard = data.map((data => {
         return (
 
-                <Link className="flex flex-col items-center bg-light-grey p-8 shadow-md cursor-pointer"
-                    to={`/workout/${data.id}`}>
+            <Link className="flex flex-col items-center bg-light-grey p-8 shadow-md cursor-pointer"
+                  to={`/workout/${data.id}`}>
 
-                    {data.workoutType === 'cardio' ?
-                        <img
-                            src="../assets/images/running-light.png"
-                            className="h-24 w-auto"
-                            alt=""
-                        />
+                {data.workoutType === 'cardio' ?
+                    <img
+                        src="../assets/images/running-light.png"
+                        className="h-24 w-auto"
+                        alt=""
+                    />
 
-                        :
+                    :
 
-                        <img
-                            src="../assets/images/dumbbell-light.png"
-                            className="h-24 w-auto"
-                            alt=""
-                        />
-                    }
-
-
-                    <p
-                        className="mt-6 py-1 px-3 text-xs text-white bg-red-600 shadow-md rounded-lg"
-                    >
-                        {data.workoutType}
-
-                    </p>
-
-                    <h1 className="mt-8 mb-2 text-center text-xl text-red-600">
-
-                        {data.workoutName}
-
-                    </h1>
+                    <img
+                        src="../assets/images/dumbbell-light.png"
+                        className="h-24 w-auto"
+                        alt=""
+                    />
+                }
 
 
-                </Link>
-    )
+                <p
+                    className="mt-6 py-1 px-3 text-xs text-white bg-red-600 shadow-md rounded-lg"
+                >
+                    {data.workoutType}
+
+                </p>
+
+                <h1 className="mt-8 mb-2 text-center text-xl text-red-600">
+
+                    {data.workoutName}
+
+                </h1>
+
+
+            </Link>
+        );
     }));
 
     return (
@@ -104,7 +108,8 @@ console.log(userId);
 
                     :
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">{renderWorkoutCard}</div>
+                    <div
+                        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">{renderWorkoutCard}</div>
                 }
             </div>
         </>
