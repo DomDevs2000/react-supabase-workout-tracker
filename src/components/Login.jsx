@@ -8,14 +8,14 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
             setLoading(true);
             const {error} = await supabase.auth.signInWithPassword({email: email, password: password});
             if (error) throw error;
-            navigate('/auth');
+            navigate('/');
         } catch (error) {
             alert(error.error_description || error.message);
         } finally {
