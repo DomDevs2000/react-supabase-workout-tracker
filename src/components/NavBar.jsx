@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import supabase from "../supabase/supabaseClient";
+import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
     const [user, setUser] = useState({});
     supabase.auth.getUser();
-    // const navigate = useNavigate();
     useEffect(() => {
         return () => {
             async function getUserData() {
@@ -24,7 +24,10 @@ const Navbar = () => {
             <nav className=" py-5 px-4 flex flex-col gap-4 items-center sm:flex-row">
                 <div className="flex items-center gap-x-4">
                     <img className="w-14" src="../assets/images/dumbbell-light.png" alt=""/>
-                    <h1 className="text-lg">Workout Tracker</h1>
+                    <a href="/" className="cursor-pointer">
+                        <button><h1 className="text-lg">Workout Tracker</h1></button>
+                    </a>
+
                 </div>
                 <ul className="flex flex-1 justify-end gap-x-10">
                     <li>
@@ -41,13 +44,14 @@ const Navbar = () => {
 
                     </li>
                     {Object.keys(user).length > 0 ?
-                        <li className="cursor-pointer" onClick={() => {
-                            supabase.auth.signOut();
-                        }
-                        }>Logout</li>
+                        <li className="cursor-pointer"
+                        >   <a href="/login" onClick={() => {
+                            supabase.auth.signOut()
+                        }}>Logout</a></li>
                         : <a href="/login" className="cursor-pointer">
                             <button>Login</button>
-                        </a>}
+                        </a>
+                    }
                 </ul>
             </nav>
         </header>
