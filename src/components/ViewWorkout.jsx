@@ -364,15 +364,13 @@ const ViewWorkout = () => {
                             </div>
                             {editMode ? <img
                                 onClick={() => deleteExercise(getId)}
-
                                 className="absolute h-4 w-auto -left-5 cursor-pointer"
-                                // src={require("../assets/images/pencil-light.png")}
+                                src={require('../assets/images/trash-light.png')}
                                 alt=""
                             /> : <></>}
                         </div>
                         {editMode ? <button
                             onClick={() => addExercise()}
-
                             type="button"
                             className="py-2 px-6 rounded-sm self-start text-sm text-white
                         bg-red-600 duration-200 border-solid border-2 border-transparent
