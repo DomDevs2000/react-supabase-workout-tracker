@@ -6,6 +6,7 @@ import Register from "./components/Register";
 import CreateWorkout from "./components/CreateWorkout";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
+import ViewWorkout from "./components/ViewWorkout";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                     <Route path={'/'} element={<Home/>}/>
                     <Route path={'/auth'} element={<SuccessAuth/>}/>
                     <Route path={'/create'} element={<CreateWorkout/>}/>
+                    <Route path={'/workout/:id'} element={<ViewWorkout/>}/>
                 </Routes>
             </Router>
 
