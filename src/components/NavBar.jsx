@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import supabase from "../supabase/supabaseClient";
-import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
     const [user, setUser] = useState({});
@@ -23,7 +22,7 @@ const Navbar = () => {
         <header className="text-white bg-red-600">
             <nav className=" py-5 px-4 flex flex-col gap-4 items-center sm:flex-row">
                 <div className="flex items-center gap-x-4">
-                    <img className="w-14" src="../assets/images/dumbbell-light.png" alt=""/>
+                    <img className="w-14" src={require('../assets/images/dumbbell-light.png')}  alt=""/>
                     <a href="/" className="cursor-pointer">
                         <button><h1 className="text-lg">Workout Tracker</h1></button>
                     </a>

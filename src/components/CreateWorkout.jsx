@@ -200,7 +200,7 @@ const CreateWorkout = () => {
                                 </div>
                                 <img
                                     onClick={() => deleteExercise(getId)}
-                                    src="../assets/images/trash-light.png"
+                                    src={require('../assets/images/trash-light.png')}
                                     className="h-4 w-auto absolute -left-5 cursor-pointer"
                                     alt=""
                                 />
@@ -275,7 +275,7 @@ const CreateWorkout = () => {
                                 </div>
                                 <img
                                     onClick={() => deleteExercise(getId)}
-                                    src="../assets/images/trash-light.png"
+                                    src={require('../assets/images/trash-light.png')}
                                     className="h-4 w-auto absolute-left-5 cursor-pointer"
                                     alt=""
                                 />

@@ -55,7 +55,7 @@ const Home = () => {
 
                 {data.workoutType === 'cardio' ?
                     <img
-                        src="../assets/images/running-light.png"
+                        src={require('../assets/images/running-light.png')}
                         className="h-24 w-auto"
                         alt=""
                     />
@@ -63,7 +63,7 @@ const Home = () => {
                     :
 
                     <img
-                        src="../assets/images/dumbbell-light.png"
+                        src={require('../assets/images/dumbbell-light.png')}
                         className="h-24 w-auto"
                         alt=""
                     />
@@ -104,7 +104,6 @@ const Home = () => {
                         </Link
                         >
                     </div>
-
 
                     :
 
