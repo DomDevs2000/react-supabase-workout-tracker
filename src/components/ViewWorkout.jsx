@@ -9,13 +9,12 @@ const ViewWorkout = () => {
     const [dataLoaded, setDataLoaded] = useState(false);
     const [user, setUser] = useState(null);
     const [data, setData] = useState([]);
-    const [errorMsg, setErrorMsg] = useState([]);
-    const [statusMsg, setStatusMsg] = useState('');
+    // const [errorMsg, setErrorMsg] = useState([]);
+    // const [statusMsg, setStatusMsg] = useState('');
     const [editMode, setEditMode] = useState(false);
-    const exercises = [];
-    const [exercise, setExercise] = useState("");
-    const [workoutName, setWorkoutName] = useState("");
-    const [workoutType, setWorkoutType] = useState('');
+    const [exercise, setExercise] = useState('');
+    const [workoutName, setWorkoutName] = useState('');
+    const [workoutType, setWorkoutType] = useState("");
     const [sets, setSets] = useState("");
     const [reps, setReps] = useState("");
     const [weight, setWeight] = useState("");
@@ -26,7 +25,7 @@ const ViewWorkout = () => {
 
 
     // hard coded workout id
-    const workoutId = 10;
+    const workoutId = 19;
     //
 
     useEffect(() => {
@@ -40,10 +39,27 @@ const ViewWorkout = () => {
                     if (error) throw error;
                     data.value = workouts[0];
                     setDataLoaded(true);
-                    console.log(data.value);
-                    // set data
-                    setWorkoutType(data.map((item, index) => (item.workoutType)));
-                    setWorkoutName(data.map((item, index) => (item.workoutName)));
+                    console.log(data.value.exercises[0].exercise);
+
+                    if(data.value.workoutType === 'strength'){
+                    setExercise(data.value.exercises[0].exercise);
+                    setWorkoutName(data.value.workoutName);
+                    setWorkoutType(data.value.workoutType);
+                    setReps(data.value.exercises[0].reps);
+                    setSets(data.value.exercises[0].sets);
+                    setWeight(data.value.exercises[0].weight);}
+                    else {
+                        setWorkoutName(data.value.workoutName)
+                        setWorkoutName(data.value.workoutType)
+                        setCardioType(data.value.cardioType)
+                        setDuration(data.value.exercises[0].duration)
+                        setDistance(data.value.exercises[0].distance)
+                        setPace(data.value.exercises[0].pace)
+                    }
+                    console.log(data.value.workoutName);
+                    console.log(data.value.workoutType);
+                    console.log(data.value.exercises[0].reps);
+                    console.log(exercise);
                 } catch (error) {
                     // setErrorMsg(error.message[0]);
                     setTimeout(() => {
@@ -117,7 +133,13 @@ const ViewWorkout = () => {
             const {error} = await supabase
                 .from("workouts")
                 .update({
-                    workoutName: data.value.workoutName, exercises: data.value.exercises,
+                    workoutName: data.value.workoutName, exercises: [{
+                        exercise: exercise,
+                        reps: reps,
+                        sets: sets,
+                        weight: weight,
+
+                    }],
                 })
                 .eq("id", workoutId);
             if (error) throw error;
@@ -212,7 +234,7 @@ const ViewWorkout = () => {
       bg-light-grey shadow-md"
                 >
 
-                    {data.workoutType === 'strength' ? <div className="flex flex-col gap-y-4 w-full">
+                    {workoutType === 'strength' ? <div className="flex flex-col gap-y-4 w-full">
                         <div
                             className="flex flex-col gap-x-6 gap-y-2 relative sm:flex-row"
                             //    data.map exercises => exercises.exercise
@@ -228,7 +250,7 @@ const ViewWorkout = () => {
                                     value={exercise}
                                     onChange={(e) => setExercise(e.target.value)}
                                 /> : <p>
-                                    {/*{{item.exercise}}*/}
+                                    {exercise}
                                 </p>}
                             </div>
                             <div className="flex flex-1 flex-col">
@@ -242,7 +264,7 @@ const ViewWorkout = () => {
                                     value={sets}
                                     onChange={(e) => setSets(e.target.value)}
                                 /> : <p>
-                                    {/*{{item.sets}}*/}
+                                    {sets}
                                 </p>}
                             </div>
                             <div className="flex flex-1 flex-col">
@@ -257,7 +279,7 @@ const ViewWorkout = () => {
                                     value={reps}
                                     onChange={(e) => setReps(e.target.value)}
                                 /> : <p>
-                                    {/*{{item.reps}}*/}
+                                    {reps}
                                 </p>}
                             </div>
                             <div className="flex flex-1 flex-col">
@@ -272,7 +294,7 @@ const ViewWorkout = () => {
                                     value={weight}
                                     onChange={(e) => setWeight(e.target.value)}
                                 /> : <p>
-                                    {/*{{item.weight}}*/}
+                                    {weight}
                                 </p>}
                             </div>
 
@@ -316,7 +338,7 @@ const ViewWorkout = () => {
                                     <option value="run">Runs</option>
                                     <option value="walk">Walk</option>
                                 </select> : <p>
-                                    {/*{{item.cardioType}}*/}
+                                    {cardioType}
                                 </p>}
                             </div>
                             <div className="flex flex-1 flex-col">
@@ -330,7 +352,7 @@ const ViewWorkout = () => {
                                     value={distance}
                                     onChange={(e) => setDistance(e.target.value)}
                                 /> : <p>
-                                    {/*{{item.distance}}*/}
+                                    {distance}
                                 </p>}
                             </div>
                             <div className="flex flex-1 flex-col">
@@ -344,7 +366,7 @@ const ViewWorkout = () => {
                                     value={duration}
                                     onChange={(e) => setDuration(e.target.value)}
                                 /> : <p>
-                                    {/*{{item.duration}}*/}
+                                    {duration}
                                 </p>}
                             </div>
                             <div className="flex flex-1 flex-col">
@@ -359,7 +381,7 @@ const ViewWorkout = () => {
                                     value={pace}
                                     onChange={(e) => setPace(e.target.value)}
                                 /> : <p>
-                                    {/*{{item.pace}}*/}
+                                    {pace}
                                 </p>}
                             </div>
                             {editMode ? <img
@@ -392,7 +414,6 @@ const ViewWorkout = () => {
                 </button> : <></>}
             </div>
 
-            {/*}*/}
 
         </div>
 
