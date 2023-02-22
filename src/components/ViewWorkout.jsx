@@ -41,25 +41,24 @@ const ViewWorkout = () => {
                     setDataLoaded(true);
                     console.log(data.value.exercises[0].exercise);
 
-                    if(data.value.workoutType === 'strength'){
-                    setExercise(data.value.exercises[0].exercise);
-                    setWorkoutName(data.value.workoutName);
-                    setWorkoutType(data.value.workoutType);
-                    setReps(data.value.exercises[0].reps);
-                    setSets(data.value.exercises[0].sets);
-                    setWeight(data.value.exercises[0].weight);}
-                    else {
-                        setWorkoutName(data.value.workoutName)
-                        setWorkoutName(data.value.workoutType)
-                        setCardioType(data.value.cardioType)
-                        setDuration(data.value.exercises[0].duration)
-                        setDistance(data.value.exercises[0].distance)
-                        setPace(data.value.exercises[0].pace)
+                    if (data.value.workoutType === 'strength') {
+                        setExercise(data.value.exercises[0].exercise);
+                        setWorkoutName(data.value.workoutName);
+                        setWorkoutType(data.value.workoutType);
+                        setReps(data.value.exercises[0].reps);
+                        setSets(data.value.exercises[0].sets);
+                        setWeight(data.value.exercises[0].weight);
+                    } else {
+                        setWorkoutName(data.value.workoutName);
+                        setWorkoutName(data.value.workoutType);
+                        setCardioType(data.value.cardioType);
+                        setDuration(data.value.exercises[0].duration);
+                        setDistance(data.value.exercises[0].distance);
+                        setPace(data.value.exercises[0].pace);
                     }
                     console.log(data.value.workoutName);
                     console.log(data.value.workoutType);
-                    console.log(data.value.exercises[0].reps);
-                    console.log(exercise);
+                    console.log(data.value.exercises[0].exercise);
                 } catch (error) {
                     // setErrorMsg(error.message[0]);
                     setTimeout(() => {
@@ -420,6 +419,5 @@ const ViewWorkout = () => {
     );
 
 };
-
 
 export default ViewWorkout;
