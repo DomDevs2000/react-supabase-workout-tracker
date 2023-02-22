@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import supabase from "../supabase/supabaseClient";
 import {uid} from "uid";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const ViewWorkout = () => {
     const navigate = useNavigate();
@@ -24,9 +24,9 @@ const ViewWorkout = () => {
     const [duration, setDuration] = useState("");
 
 
-    // hard coded workout id
-    const workoutId = 19;
-    //
+    const {id} = useParams('id');
+    const workoutId = id;
+    console.log(workoutId);
 
     useEffect(() => {
         return () => {
