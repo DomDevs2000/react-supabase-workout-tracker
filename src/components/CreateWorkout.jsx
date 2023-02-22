@@ -26,7 +26,7 @@ const CreateWorkout = () => {
         if (workoutType === "strength") {
             setExercises(exercises => [
                 {
-                    id: uid(),
+                    exerciseId: uid(),
                     exercise: exercise,
                     sets: sets,
                     reps: reps,
@@ -39,7 +39,7 @@ const CreateWorkout = () => {
         } else {
             setExercises(exercises => [{
                 cardioType: cardioType,
-                id: uid(),
+                exerciseId: uid(),
                 duration: duration,
                 pace: pace,
                 distance: distance,
