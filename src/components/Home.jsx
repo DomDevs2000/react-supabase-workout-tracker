@@ -32,7 +32,7 @@ const Home = () => {
                 const {
                     data: workouts,
                     error
-                } = await supabase.from("workouts").select('*').eq('userId', '5bbfa90a-61ee-40f0-afc9-1ad11a7c8c65');
+                } = await supabase.from("workouts").select('*').eq('userId', 'b0f05fe2-b51e-4321-8fdb-ad1c719f26c9');
                 if (error) {
                     throw error;
                 }
