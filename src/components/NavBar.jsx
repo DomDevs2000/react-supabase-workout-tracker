@@ -3,7 +3,14 @@ import supabase from "../supabase/supabaseClient";
 
 const Navbar = () => {
     const [user, setUser] = useState({});
+
     supabase.auth.getUser();
+
+    const logout = async () => {
+        const {error} = await supabase.auth.signOut();
+    };
+
+
     useEffect(() => {
         return () => {
             async function getUserData() {
@@ -22,7 +29,7 @@ const Navbar = () => {
         <header className="text-white bg-red-600">
             <nav className=" py-5 px-4 flex flex-col gap-4 items-center sm:flex-row">
                 <div className="flex items-center gap-x-4">
-                    <img className="w-14" src={require('../assets/images/dumbbell-light.png')}  alt=""/>
+                    <img className="w-14" src={require('../assets/images/dumbbell-light.png')} alt=""/>
                     <a href="/" className="cursor-pointer">
                         <button><h1 className="text-lg">Workout Tracker</h1></button>
                     </a>
@@ -42,10 +49,11 @@ const Navbar = () => {
                             : <div></div>}
 
                     </li>
+
                     {Object.keys(user).length > 0 ?
                         <li className="cursor-pointer"
                         >   <a href="/login" onClick={() => {
-                            supabase.auth.signOut()
+                            logout();
                         }}>Logout</a></li>
                         : <a href="/login" className="cursor-pointer">
                             <button>Login</button>
