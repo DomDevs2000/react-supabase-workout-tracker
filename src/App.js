@@ -20,7 +20,7 @@ function App() {
                     <Route path={'/'} element={<Home/>}/>
                     <Route path={'/auth'} element={<SuccessAuth/>}/>
                     <Route path={'/create'} element={<CreateWorkout/>}/>
-                    <Route path={'/workout/:id'} element={<ViewWorkout/>}/>
+                    <Route path={'/workout/:id'} element={<ViewWorkout/>}/> 
                 </Routes>
             </Router>
 
