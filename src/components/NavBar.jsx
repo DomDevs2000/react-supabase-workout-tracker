@@ -1,15 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import supabase from "../supabase/supabaseClient";
+import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
     const [user, setUser] = useState({});
 
     supabase.auth.getUser();
-
-    const logout = async () => {
-        const {error} = await supabase.auth.signOut();
-    };
-
 
     useEffect(() => {
         return () => {
@@ -25,6 +21,15 @@ const Navbar = () => {
             getUserData();
         };
     }, []);
+
+    async function logOutUser() {
+        const {error} = await supabase.auth.signOut();
+        console.log("user logged out")
+
+
+
+    }
+
     return <>
         <header className="text-white bg-red-600">
             <nav className=" py-5 px-4 flex flex-col gap-4 items-center sm:flex-row">
@@ -53,7 +58,7 @@ const Navbar = () => {
                     {Object.keys(user).length > 0 ?
                         <li className="cursor-pointer"
                         >   <a href="/login" onClick={() => {
-                            logout();
+                            logOutUser();
                         }}>Logout</a></li>
                         : <a href="/login" className="cursor-pointer">
                             <button>Login</button>
