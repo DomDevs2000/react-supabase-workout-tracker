@@ -13,7 +13,7 @@ const Login = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const {error} = await supabase.auth.signInWithPassword({email: email, password: password});
+            const {data, error} = await supabase.auth.signInWithPassword({email: email, password: password});
             if (error) throw error;
             navigate('/');
         } catch (error) {

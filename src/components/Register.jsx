@@ -3,20 +3,22 @@ import {Link, useNavigate} from "react-router-dom";
 import supabase from '../supabase/supabaseClient';
 
 const Register = () => {
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
             setLoading(true);
-            const {data, error} = await supabase.auth.signUp({
+            const {user, session, error} = await supabase.auth.signUp({
                 email: email,
                 password: password,
             });
+            console.log(session);
+            console.log(user);
             if (error) throw error;
             navigate('/login');
         } catch (error) {
