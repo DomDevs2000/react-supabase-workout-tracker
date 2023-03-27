@@ -5,22 +5,28 @@ import supabase from '../supabase/supabaseClient';
 const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
             setLoading(true);
-            const {user, session, error} = await supabase.auth.signUp({
-                email: email,
-                password: password,
-            });
-            console.log(session);
-            console.log(user);
-            if (error) throw error;
-            navigate('/login');
+            if (password === confirmPassword) {
+                const {user, session, error} = await supabase.auth.signUp({
+                    email: email, password: password,
+                });
+                console.log(session);
+                console.log(user);
+                alert('Please Click The Link In Your Email To Verify')
+                navigate('/login');
+                if (error) throw error;
+            } else {
+                alert('Password Does Not Match')
+            }
+
+
         } catch (error) {
             alert(error.error_description || error.message);
         } finally {
@@ -75,8 +81,8 @@ const Register = () => {
                         required
                         className="p-2 text-gray-500 focus:outline-none"
                         id="confirmPassword"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
 
@@ -89,7 +95,6 @@ const Register = () => {
                 >
                     Register
                 </button>
-
                 <Link to={'/login'} className="text-sm mt-6 text-center">
                     Already have an account? <span className="text-red-600">Login</span>
                 </Link>
