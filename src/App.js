@@ -16,6 +16,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path={'/login'} element={<Login/>}/>
+                    {/*create logout component*/}
                     <Route path={'/register'} element={<Register/>}/>
                     <Route path={'/'} element={<Home/>}/>
                     <Route path={'/auth'} element={<SuccessAuth/>}/>
