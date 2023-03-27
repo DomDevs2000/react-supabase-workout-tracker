@@ -76,29 +76,32 @@ async function getUserId() {
 
 getUserId();
 // create workout
-const createWorkout = async () => {
+const createWorkout = async (e) => {
+    e.preventDefault();
     try {
-        const {error} = await supabase.from("workouts").insert([
+        const {data, error} = await supabase.from("workouts").insert([
             {
                 userId: userId,
                 workoutName: workoutName,
                 workoutType: workoutType,
                 exercises: exercises,
             },
-        ]);
-        if (error) throw error;
-        statusMsg.value = "Success: Workout Created!";
-        workoutName.value = null;
-        workoutType.value = "select-workout";
-        exercises.value = [];
-        setTimeout(() => {
-            statusMsg.value = false;
-        }, 5000);
+        ]).select();
+        console.log(data, error);
+        if (error) {throw error};
+        // statusMsg.value = "Success: Workout Created!";
+        // workoutName.value = null;
+        // workoutType.value = "select-workout";
+        // exercises.value = [];
+        // setTimeout(() => {
+        //     statusMsg.value = false;
+        // }, 5000);
     } catch (error) {
-        errorMsg.value = `Error: ${error.message}`;
-        setTimeout(() => {
-            errorMsg.value = false;
-        }, 5000);
+        console.error('error', error)
+        // errorMsg.value = `Error: ${error.message}`;
+        // setTimeout(() => {
+        //     errorMsg.value = false;
+        // }, 5000);
     }
 };
 
@@ -175,7 +178,7 @@ return (
                                 />
                             </div>
                             <div className="flex flex-col flex-1">
-                                <label htmlFor="sets" className="mb-1 text-sm text-red-600">Sets </label>
+                                <label htmlFor="sets" className="mb-1 text-sm text-red-600">Sets</label>
                                 <input
                                     required
                                     type="text"
