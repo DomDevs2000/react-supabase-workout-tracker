@@ -103,7 +103,6 @@ const createWorkout = async () => {
 };
 
 // workout change
-
 const workoutChange = () => {
     exercises.value = [];
     addExercise();
@@ -112,7 +111,6 @@ return (
     <div className="max-w-screen-md mx-auto px-4 py-10">
         {/*{!statusMsg ?*/}
         {/*<div*/}
-
         {/*    className="mb-10 p-4 bg-light-grey rounded-md shadow-lg"*/}
         {/*>*/}
         {/*    <p className="text-at-light-green">*/}
