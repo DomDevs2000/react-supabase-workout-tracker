@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
     const [user, setUser] = useState({});
+    // const navigate = useNavigate()
 
     supabase.auth.getUser();
 
@@ -13,11 +14,10 @@ const Navbar = () => {
                 await supabase.auth.getUser().then((value) => {
                     if (value.data?.user) {
                         setUser(value.data.user);
-                        console.log(value.data.user);
+                        // console.log(value.data.user);
                     }
                 });
             }
-
             getUserData();
         };
     }, []);
@@ -25,9 +25,7 @@ const Navbar = () => {
     async function logOutUser() {
         const {error} = await supabase.auth.signOut();
         console.log("user logged out")
-
-
-
+        // navigate('/login');
     }
 
     return <>
