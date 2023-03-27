@@ -10,29 +10,30 @@ const Home = () => {
 
 
     useEffect(() => {
-        return () => {
-            async function getUserId() {
-                await supabase.auth.getUser().then((value) => {
-                    if (value.data?.user) {
-                        setUserId(value.data.user.id);
-                        console.log(value.data.user);
-                    }
-                });
-            }
 
-            getUserId();
-        };
+        async function getUserId() {
+            await supabase.auth.getUser().then((value) => {
+                if (value.data?.user) {
+                    setUserId(value.data.user.id);
+                    // console.log(value.data.user);
+                }
+            });
+        }
+
+        getUserId();
+
     }, [dataLoaded]);
 
     console.log(userId);
 
     useEffect(() => {
-        return async () => {
+        async function getWorkouts() {
             try {
+                console.log('test user', userId, userId.toString() === '5c665e10-2a91-412d-8ca4-b51d46c6149e')
                 const {
                     data: workouts,
                     error
-                } = await supabase.from("workouts").select('*').eq('userId', '5c665e10-2a91-412d-8ca4-b51d46c6149e');
+                } = await supabase.from("workouts").select('*').eq('userId', userId);
                 if (error) {
                     throw error;
                 }
@@ -42,10 +43,11 @@ const Home = () => {
             } catch (error) {
                 console.warn(error.message);
             }
-        };
-    }, []);
+        }
+        getWorkouts();
+    }, [userId]);
 
-    console.log(data);
+    // console.log(data);
 
     const renderWorkoutCard = data.map((data => {
         return (
