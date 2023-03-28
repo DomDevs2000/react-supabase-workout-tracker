@@ -88,6 +88,7 @@ const createWorkout = async (e) => {
             },
         ]).select();
         console.log(data, error);
+        alert('Workout Created!')
         if (error) {throw error};
         // statusMsg.value = "Success: Workout Created!";
         // workoutName.value = null;
