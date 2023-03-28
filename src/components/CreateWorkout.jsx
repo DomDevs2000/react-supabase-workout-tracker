@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {uid} from 'uid';
 import supabase from '../supabase/supabaseClient';
+import {useNavigate} from "react-router-dom";
 
 const CreateWorkout = () => {
     const [workoutName, setWorkoutName] = useState("");
@@ -15,6 +16,7 @@ const CreateWorkout = () => {
     const [distance, setDistance] = useState("");
     const [duration, setDuration] = useState("");
     const [userId, setUserId] = useState("");
+    const navigate = useNavigate();
 
 
     const errorMsg = [];
@@ -89,6 +91,7 @@ const createWorkout = async (e) => {
         ]).select();
         console.log(data, error);
         alert('Workout Created!')
+        navigate('/')
         if (error) {throw error};
         // statusMsg.value = "Success: Workout Created!";
         // workoutName.value = null;
