@@ -7,7 +7,9 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate();
+
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -17,7 +19,7 @@ const Login = () => {
             if (error) throw error;
             navigate('/');
         } catch (error) {
-            alert(error.error_description || error.message);
+            setErrorMessage(error.message)
         } finally {
             setLoading(false);
         }
@@ -27,7 +29,9 @@ const Login = () => {
 
         <div className="max-w-screen-sm mx-auto px-4 py-10">
             <div className="mb-10 p-4 rounded-md bg-light-grey shadow-lg">
-                <p className="text-red-500"></p>
+                <p className="text-red-500">
+                    {errorMessage}
+                </p>
             </div>
 
             <form
@@ -78,7 +82,8 @@ const Login = () => {
                     Don't have an account? <span className="text-red-600">Register</span>
                 </Link>
             </form>
-        </div>);
+        </div>
+    );
 };
 
 export default Login;

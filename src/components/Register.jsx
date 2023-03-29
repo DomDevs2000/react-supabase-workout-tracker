@@ -6,6 +6,7 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('')
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -13,22 +14,23 @@ const Register = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            if (password === confirmPassword) {
+            if (password.length < 6) {
+                setErrorMessage('Password Must Be Greater Than 6 Characters')
+            } else if (password === confirmPassword) {
+
                 const {user, session, error} = await supabase.auth.signUp({
                     email: email, password: password,
                 });
                 console.log(session);
                 console.log(user);
-                alert('Please Click The Link In Your Email To Verify')
+                setErrorMessage('Please Click The Link In Your Email To Verify Your Account')
                 navigate('/login');
                 if (error) throw error;
             } else {
-                alert('Password Does Not Match')
+                setErrorMessage('Passwords Do Not Match')
             }
-
-
         } catch (error) {
-            alert(error.error_description || error.message);
+            setErrorMessage(error.message)
         } finally {
             setLoading(false);
         }
@@ -38,7 +40,9 @@ const Register = () => {
 
         <div className="max-w-screen-sm mx-auto px-4 py-10">
             <div className="mb-10 p-4 rounded-md bg-light-grey shadow-lg">
-                <p className="text-red-500"></p>
+                <p className="text-red-500">
+                    {errorMessage}
+                </p>
             </div>
 
             <form
