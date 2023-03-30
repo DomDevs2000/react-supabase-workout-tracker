@@ -8,6 +8,10 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.31",
+    "@types/react-dom": "^18.0.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
@@ -19,6 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "gen-types": "supabase gen types typescript --linked > types/supabase.ts ",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -41,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "supabase": "^1.46.3",
     "tailwindcss": "^3.2.6"
   }
 }
