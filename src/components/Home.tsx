@@ -6,7 +6,7 @@ const Home = () => {
 
     const [data, setData] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(null);
-    const [userId, setUserId] = useState('');
+    const [userId, setUserId] = useState<string>('');
 
 
     useEffect(() => {
@@ -39,7 +39,6 @@ const Home = () => {
                 }
                 setData(workouts);
                 setDataLoaded(true);
-
             } catch (error) {
                 console.warn(error.message);
             }
