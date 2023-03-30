@@ -3,14 +3,14 @@ import {Link, useNavigate} from "react-router-dom";
 import supabase from '../lib/supabaseClient';
 
 const Register = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('')
-    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (e: any) => {
         e.preventDefault();
         try {
             setLoading(true);
@@ -18,18 +18,18 @@ const Register = () => {
                 setErrorMessage('Password Must Be Greater Than 6 Characters')
             } else if (password === confirmPassword) {
 
-                const {user, session, error} = await supabase.auth.signUp({
+                const {error} = await supabase.auth.signUp({
                     email: email, password: password,
                 });
-                console.log(session);
-                console.log(user);
                 setErrorMessage('Please Click The Link In Your Email To Verify Your Account')
                 navigate('/login');
-                if (error) throw error;
+                if (error) {
+                    console.error(error);
+                }
             } else {
                 setErrorMessage('Passwords Do Not Match')
             }
-        } catch (error) {
+        } catch (error: any) {
             setErrorMessage(error.message)
         } finally {
             setLoading(false);

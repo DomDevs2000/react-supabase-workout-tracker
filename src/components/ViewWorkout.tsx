@@ -11,17 +11,17 @@ const ViewWorkout = () => {
     const [data, setData] = useState([]);
     // const [errorMsg, setErrorMsg] = useState([]);
     // const [statusMsg, setStatusMsg] = useState('');
-    const [editMode, setEditMode] = useState(false);
-    const [exercise, setExercise] = useState('');
-    const [workoutName, setWorkoutName] = useState('');
-    const [workoutType, setWorkoutType] = useState("");
-    const [sets, setSets] = useState("");
-    const [reps, setReps] = useState("");
-    const [weight, setWeight] = useState("");
-    const [cardioType, setCardioType] = useState("");
-    const [pace, setPace] = useState("");
-    const [distance, setDistance] = useState("");
-    const [duration, setDuration] = useState("");
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [exercise, setExercise] = useState<string>('');
+    const [workoutName, setWorkoutName] = useState<string>('');
+    const [workoutType, setWorkoutType] = useState<string>("");
+    const [sets, setSets] = useState<number>();
+    const [reps, setReps] = useState<number>();
+    const [weight, setWeight] = useState<number>();
+    const [cardioType, setCardioType] = useState();
+    const [pace, setPace] = useState<number>();
+    const [distance, setDistance] = useState<number>();
+    const [duration, setDuration] = useState<number>();
 
 
     const {id} = useParams('id');

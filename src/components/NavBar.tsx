@@ -45,14 +45,6 @@ const Navbar = () => {
                             <button>Track Workout</button>
                         </a>
                     </li>
-                    <li>
-                        {user.length <= 0 ?
-                            <a href="/login" className="cursor-pointer">
-                                <button>Login</button>
-                            </a>
-                            : <div></div>}
-
-                    </li>
 
                     {Object.keys(user).length > 0 ?
                         <li className="cursor-pointer"

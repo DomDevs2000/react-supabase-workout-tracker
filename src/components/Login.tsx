@@ -1,24 +1,26 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import supabase from '../lib/supabaseClient';
+interface IUser  {
+    email: string;
+    password: string
+}
 
 const Login = () => {
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate();
 
-
-    const handleLogin = async (e) => {
+    const handleLogin = async (e: any) => {
         e.preventDefault();
         try {
             setLoading(true);
             const {data, error} = await supabase.auth.signInWithPassword({email: email, password: password});
             if (error) throw error;
             navigate('/');
-        } catch (error) {
+        } catch (error: any) {
             setErrorMessage(error.message)
         } finally {
             setLoading(false);
