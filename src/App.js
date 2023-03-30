@@ -1,5 +1,5 @@
 import './App.css';
-import Login from './components/Login.jsx';
+import Login from './components/Login';
 import SuccessAuth from './components/SuccessAuth';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Register from "./components/Register";
