@@ -12,7 +12,7 @@ const ViewWorkout = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [statusMessage, setStatusMessage] = useState('');
     const [editMode, setEditMode] = useState<boolean>(false);
-    const [exercise, setExercise] = useState<string>('');
+    const [exercise, setExercise] = useState('');
     const [workoutName, setWorkoutName] = useState<string>('');
     const [workoutType, setWorkoutType] = useState<string>("");
     const [sets, setSets] = useState<number>();
@@ -136,280 +136,281 @@ const ViewWorkout = () => {
                     }],
                 })
                 .eq("id", workoutId);
-            if (error) throw error;
-            setEditMode(false);
-            setStatusMessage('"Success: Workout Updated!"');
-            setTimeout(() => {
-                // setStatusMsg('');
-            }, 5000);
+            if (error) {
+                throw error
+                console.error(error)
+            } else {
+                setEditMode(false);
+                setStatusMessage('"Success: Workout Updated!"');
+            }
         } catch (error) {
             setErrorMessage(`Error: ${error.message.toString()}`);
 
         }
     };
-    return (<div className="max-w-screen-sm mx-auto px-4 py-10">
-
+    return (
+        <div className="max-w-screen-sm mx-auto px-4 py-10">
             {errorMessage ?
-            <div
-
-                className="mb-10 p-4 rounded-md shadow-md bg-light-grey"
-            >
-                <p className="text-red-600">
-                    {statusMessage}
-                </p>
-                <p className="text-red-500">
-                    {errorMessage}
-                </p>
-            </div>
-            :
-
-            <div>
                 <div
-                    className="flex flex-col items-center p-8 rounded-md shadow-md
-      bg-light-grey relative"
-                >
-                    {user ? <div className="flex absolute left-2 top-2 gap-x-2">
-                        <div
-                            className="h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
-        bg-red-600 shadow-lg" onClick={() => setEditMode(true)}
-                        >
-                            <img className="h-3.5 w-auto" src={require('../assets/images/pencil-light.png')}
-                                 alt=""/>
-                        </div>
-                        <div
-                            onClick={() => deleteWorkout()}
 
-                            className="h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
-                        bg-red-600 shadow-lg"
-                        >
-                            <img className="h-3.5 w-auto" src={require('../assets/images/trash-light.png')}
-                                 alt=""/>
-                        </div>
-                    </div> : <></>}
-                    {workoutType === 'cardio' ? <img
-                        className="h-24 w-auto"
-                        src={require('../assets/images/running-light.png')}
-                        alt=""
-                    /> : <img
-                        className="h-24 w-auto"
-                        src={require('../assets/images/dumbbell-light.png')}
-                        alt=""
-                    />}
-                    <span className="mt-6 py-1.5 px-5 text-xs text-white bg-red-600
-        rounded-lg shadow-md"
+                    className="mb-10 p-4 rounded-md shadow-md bg-light-grey"
+                >
+                    <p className="text-red-600">
+                        {statusMessage}
+                    </p>
+                    <p className="text-red-500">
+                        {errorMessage}
+                    </p>
+                </div>
+                :
+
+                <div>
+                    <div
+                        className="flex flex-col items-center p-8 rounded-md shadow-md
+      bg-light-grey relative"
                     >
+                        {user ? <div className="flex absolute left-2 top-2 gap-x-2">
+                            <div
+                                className="h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
+        bg-red-600 shadow-lg" onClick={() => setEditMode(true)}
+                            >
+                                <img className="h-3.5 w-auto" src={require('../assets/images/pencil-light.png')}
+                                     alt=""/>
+                            </div>
+                            <div
+                                onClick={() => deleteWorkout()}
+
+                                className="h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
+                        bg-red-600 shadow-lg"
+                            >
+                                <img className="h-3.5 w-auto" src={require('../assets/images/trash-light.png')}
+                                     alt=""/>
+                            </div>
+                        </div> : <></>}
+                        {workoutType === 'cardio' ? <img
+                            className="h-24 w-auto"
+                            src={require('../assets/images/running-light.png')}
+                            alt=""
+                        /> : <img
+                            className="h-24 w-auto"
+                            src={require('../assets/images/dumbbell-light.png')}
+                            alt=""
+                        />}
+                        <span className="mt-6 py-1.5 px-5 text-xs text-white bg-red-600
+        rounded-lg shadow-md"
+                        >
           {workoutType}
         </span>
-                    {editMode ? <div className="w-full mt-6">
-                            <input
+                        {editMode ? <div className="w-full mt-6">
+                                <input
 
-                                type="text"
-                                className="p-2 w-full text-gray-500 focus:outline-none"
-                                value={workoutName}
-                                onChange={(e) => setWorkoutName(e.target.value)}
-                                placeholder="Workout Name Here"
-                            />
-                        </div> :
+                                    type="text"
+                                    className="p-2 w-full text-gray-500 focus:outline-none"
+                                    value={workoutName}
+                                    onChange={(e) => setWorkoutName(e.target.value)}
+                                    placeholder="Workout Name Here"
+                                />
+                            </div> :
 
-                        <div className="w-full mt-6">
-                            <h1 className="text-red-600 text-2xl text-center">
-                                {workoutName}
-                            </h1>
+                            <div className="w-full mt-6">
+                                <h1 className="text-red-600 text-2xl text-center">
+                                    {workoutName}
+                                </h1>
 
-                        </div>}
+                            </div>}
 
 
-                </div>
+                    </div>
 
-                <div
-                    className="mt-10 p-8 rounded-md flex flex-col item-center
+                    <div
+                        className="mt-10 p-8 rounded-md flex flex-col item-center
       bg-light-grey shadow-md"
-                >
+                    >
 
-                    {workoutType === 'strength' ? <div className="flex flex-col gap-y-4 w-full">
-                        <div
-                            className="flex flex-col gap-x-6 gap-y-2 relative sm:flex-row"
-                            //    data.map exercises => exercises.exercise
-                        >
-                            <div className="flex flex-2 flex-col md:w-1/3">
-                                <label htmlFor="exercise-name" className="mb-1 text-sm text-red-600">
-                                    Exercise
-                                </label>
-                                {editMode ? <input
-                                    id="exercise-name"
-                                    className="p-2 w-full text-gray-500 focus:outline-none"
-                                    type="text"
-                                    value={exercise}
-                                    onChange={(e) => setExercise(e.target.value)}
-                                /> : <p>
-                                    {exercise}
-                                </p>}
+                        {workoutType === 'strength' ? <div className="flex flex-col gap-y-4 w-full">
+                            <div
+                                className="flex flex-col gap-x-6 gap-y-2 relative sm:flex-row"
+                                //    data.map exercises => exercises.exercise
+                            >
+                                <div className="flex flex-2 flex-col md:w-1/3">
+                                    <label htmlFor="exercise-name" className="mb-1 text-sm text-red-600">
+                                        Exercise
+                                    </label>
+                                    {editMode ? <input
+                                        id="exercise-name"
+                                        className="p-2 w-full text-gray-500 focus:outline-none"
+                                        type="text"
+                                        value={exercise}
+                                        onChange={(e) => setExercise(e.target.value)}
+                                    /> : <p>
+                                        {exercise}
+                                    </p>}
+                                </div>
+                                <div className="flex flex-1 flex-col">
+                                    <label htmlFor="sets" className="mb-1 text-sm text-red-600">
+                                        Sets
+                                    </label>
+                                    {editMode ? <input
+                                        id="sets"
+                                        className="p-2 w-full text-gray-500 focus:outline-none"
+                                        type="text"
+                                        value={sets}
+                                        onChange={(e) => setSets(e.target.value)}
+                                    /> : <p>
+                                        {sets}
+                                    </p>}
+                                </div>
+                                <div className="flex flex-1 flex-col">
+                                    <label htmlFor="reps" className="mb-1 text-sm text-red-600">
+                                        Reps
+                                    </label>
+
+                                    {editMode ? <input
+                                        id="reps"
+                                        className="p-2 w-full text-gray-500 focus:outline-none"
+                                        type="text"
+                                        value={reps}
+                                        onChange={(e) => setReps(e.target.value)}
+                                    /> : <p>
+                                        {reps}
+                                    </p>}
+                                </div>
+                                <div className="flex flex-1 flex-col">
+                                    <label htmlFor="weight" className="mb-1 text-sm text-red-600">
+                                        Weight (Kg's)
+                                    </label>
+
+                                    {editMode ? <input
+                                        id="weight"
+                                        className="p-2 w-full text-gray-500 focus:outline-none"
+                                        type="text"
+                                        value={weight}
+                                        onChange={(e) => setWeight(e.target.value)}
+                                    /> : <p>
+                                        {weight}
+                                    </p>}
+                                </div>
+
+                                {editMode ? <img
+
+                                    onClick={() => deleteExercise(getId)}
+
+                                    className="absolute h-4 w-auto -left-5 cursor-pointer"
+                                    src={require('../assets/images/trash-light.png')}
+                                    alt=""
+                                /> : <></>}
                             </div>
-                            <div className="flex flex-1 flex-col">
-                                <label htmlFor="sets" className="mb-1 text-sm text-red-600">
-                                    Sets
-                                </label>
-                                {editMode ? <input
-                                    id="sets"
-                                    className="p-2 w-full text-gray-500 focus:outline-none"
-                                    type="text"
-                                    value={sets}
-                                    onChange={(e) => setSets(e.target.value)}
-                                /> : <p>
-                                    {sets}
-                                </p>}
-                            </div>
-                            <div className="flex flex-1 flex-col">
-                                <label htmlFor="reps" className="mb-1 text-sm text-red-600">
-                                    Reps
-                                </label>
+                            {editMode ? <button
 
-                                {editMode ? <input
-                                    id="reps"
-                                    className="p-2 w-full text-gray-500 focus:outline-none"
-                                    type="text"
-                                    value={reps}
-                                    onChange={(e) => setReps(e.target.value)}
-                                /> : <p>
-                                    {reps}
-                                </p>}
-                            </div>
-                            <div className="flex flex-1 flex-col">
-                                <label htmlFor="weight" className="mb-1 text-sm text-red-600">
-                                    Weight (Kg's)
-                                </label>
+                                onClick={() => addExercise()}
 
-                                {editMode ? <input
-                                    id="weight"
-                                    className="p-2 w-full text-gray-500 focus:outline-none"
-                                    type="text"
-                                    value={weight}
-                                    onChange={(e) => setWeight(e.target.value)}
-                                /> : <p>
-                                    {weight}
-                                </p>}
-                            </div>
-
-                            {editMode ? <img
-
-                                onClick={() => deleteExercise(getId)}
-
-                                className="absolute h-4 w-auto -left-5 cursor-pointer"
-                                src={require('../assets/images/trash-light.png')}
-                                alt=""
-                            /> : <></>}
-                        </div>
-                        {editMode ? <button
-
-                            onClick={() => addExercise()}
-
-                            type="button"
-                            className="py-2 px-6 rounded-sm self-start text-sm text-white
+                                type="button"
+                                className="py-2 px-6 rounded-sm self-start text-sm text-white
         bg-red-600 duration-200 border-solid border-2 border-transparent
         hover:border-red-600 hover:bg-white hover:text-red-600"
-                        >
-                            Add Exercise
-                        </button> : <></>}
-                    </div> : <div className="flex flex-col gap-y-4 w-full">
-                        <div
-                            className="flex flex-col gap-x-6 gap-y-2 relative sm:flex-row"
-                            // data.map exercises => exercises.cardioType
-                        >
-                            <div className="flex flex-2 flex-col md:w-1/3">
-                                <label htmlFor="cardioType" className="mb-1 text-sm text-red-600">
-                                    Type
-                                </label>
+                            >
+                                Add Exercise
+                            </button> : <></>}
+                        </div> : <div className="flex flex-col gap-y-4 w-full">
+                            <div
+                                className="flex flex-col gap-x-6 gap-y-2 relative sm:flex-row"
+                                // data.map exercises => exercises.cardioType
+                            >
+                                <div className="flex flex-2 flex-col md:w-1/3">
+                                    <label htmlFor="cardioType" className="mb-1 text-sm text-red-600">
+                                        Type
+                                    </label>
 
-                                {editMode ? <select
-                                    id="cardioType"
-                                    className="p-2 w-full text-gray-500 focus:outline-none"
-                                    value={cardioType}
-                                    onChange={(e) => setCardioType(e.target.value)}
-                                >
-                                    <option value="#">Select Type</option>
-                                    <option value="run">Runs</option>
-                                    <option value="walk">Walk</option>
-                                </select> : <p>
-                                    {cardioType}
-                                </p>}
-                            </div>
-                            <div className="flex flex-1 flex-col">
-                                <label htmlFor="distance" className="mb-1 text-sm text-red-600">
-                                    Distance
-                                </label>
-                                {editMode ? <input
-                                    id="distance"
-                                    className="p-2 w-full text-gray-500 focus:outline-none"
-                                    type="text"
-                                    value={distance}
-                                    onChange={(e) => setDistance(e.target.value)}
-                                /> : <p>
-                                    {distance}
-                                </p>}
-                            </div>
-                            <div className="flex flex-1 flex-col">
-                                <label htmlFor="duration" className="mb-1 text-sm text-red-600">
-                                    Duration
-                                </label>
-                                {editMode ? <input
-                                    id="duration"
-                                    className="p-2 w-full text-gray-500 focus:outline-none"
-                                    type="text"
-                                    value={duration}
-                                    onChange={(e) => setDuration(e.target.value)}
-                                /> : <p>
-                                    {duration}
-                                </p>}
-                            </div>
-                            <div className="flex flex-1 flex-col">
-                                <label htmlFor="pace" className="mb-1 text-sm text-red-600">
-                                    Pace
-                                </label>
-                                {editMode ? <input
+                                    {editMode ? <select
+                                        id="cardioType"
+                                        className="p-2 w-full text-gray-500 focus:outline-none"
+                                        value={cardioType}
+                                        onChange={(e) => setCardioType(e.target.value)}
+                                    >
+                                        <option value="#">Select Type</option>
+                                        <option value="run">Runs</option>
+                                        <option value="walk">Walk</option>
+                                    </select> : <p>
+                                        {cardioType}
+                                    </p>}
+                                </div>
+                                <div className="flex flex-1 flex-col">
+                                    <label htmlFor="distance" className="mb-1 text-sm text-red-600">
+                                        Distance
+                                    </label>
+                                    {editMode ? <input
+                                        id="distance"
+                                        className="p-2 w-full text-gray-500 focus:outline-none"
+                                        type="text"
+                                        value={distance}
+                                        onChange={(e) => setDistance(e.target.value)}
+                                    /> : <p>
+                                        {distance}
+                                    </p>}
+                                </div>
+                                <div className="flex flex-1 flex-col">
+                                    <label htmlFor="duration" className="mb-1 text-sm text-red-600">
+                                        Duration
+                                    </label>
+                                    {editMode ? <input
+                                        id="duration"
+                                        className="p-2 w-full text-gray-500 focus:outline-none"
+                                        type="text"
+                                        value={duration}
+                                        onChange={(e) => setDuration(e.target.value)}
+                                    /> : <p>
+                                        {duration}
+                                    </p>}
+                                </div>
+                                <div className="flex flex-1 flex-col">
+                                    <label htmlFor="pace" className="mb-1 text-sm text-red-600">
+                                        Pace
+                                    </label>
+                                    {editMode ? <input
 
-                                    id="pace"
-                                    className="p-2 w-full text-gray-500 focus:outline-none"
-                                    type="text"
-                                    value={pace}
-                                    onChange={(e) => setPace(e.target.value)}
-                                /> : <p>
-                                    {pace}
-                                </p>}
+                                        id="pace"
+                                        className="p-2 w-full text-gray-500 focus:outline-none"
+                                        type="text"
+                                        value={pace}
+                                        onChange={(e) => setPace(e.target.value)}
+                                    /> : <p>
+                                        {pace}
+                                    </p>}
+                                </div>
+                                {editMode ? <img
+                                    onClick={() => deleteExercise(getId)}
+                                    className="absolute h-4 w-auto -left-5 cursor-pointer"
+                                    src={require('../assets/images/trash-light.png')}
+                                    alt=""
+                                /> : <></>}
                             </div>
-                            {editMode ? <img
-                                onClick={() => deleteExercise(getId)}
-                                className="absolute h-4 w-auto -left-5 cursor-pointer"
-                                src={require('../assets/images/trash-light.png')}
-                                alt=""
-                            /> : <></>}
-                        </div>
-                        {editMode ? <button
-                            onClick={() => addExercise()}
-                            type="button"
-                            className="py-2 px-6 rounded-sm self-start text-sm text-white
+                            {editMode ? <button
+                                onClick={() => addExercise()}
+                                type="button"
+                                className="py-2 px-6 rounded-sm self-start text-sm text-white
                         bg-red-600 duration-200 border-solid border-2 border-transparent
                         hover:border-red-600  hover:bg-white hover:text-red-600"
-                        >
-                            Add Exercise
-                        </button> : <></>}
-                    </div>}
-                </div>
-                {editMode ? <button
+                            >
+                                Add Exercise
+                            </button> : <></>}
+                        </div>}
+                    </div>
+                    {editMode ? <button
 
-                    onClick={() => update()}
-                    type="button"
-                    className="mt-10 py-2 px-6 rounded-sm self-start text-sm text-white
+                        onClick={() => update()}
+                        type="button"
+                        className="mt-10 py-2 px-6 rounded-sm self-start text-sm text-white
     bg-red-600 duration-200 border-solid border-2 border-transparent
     hover:border-red-600 hover:bg-white hover:text-red-600"
-                >
-                    Update Workout
-                </button> : <></>}
-            </div>
+                    >
+                        Update Workout
+                    </button> : <></>}
+                </div>
 
             }
         </div>
 
-            );
+    );
 
 };
 
