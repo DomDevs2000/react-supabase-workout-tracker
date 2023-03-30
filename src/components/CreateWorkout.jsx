@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {uid} from 'uid';
-import supabase from '../supabase/supabaseClient';
+import supabase from '../lib/supabaseClient';
 import {useNavigate} from "react-router-dom";
 
 const CreateWorkout = () => {
