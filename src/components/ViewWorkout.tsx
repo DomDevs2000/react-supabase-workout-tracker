@@ -9,8 +9,8 @@ const ViewWorkout = () => {
     const [dataLoaded, setDataLoaded] = useState(false);
     const [user, setUser] = useState(null);
     const [data, setData] = useState([]);
-    // const [errorMsg, setErrorMsg] = useState([]);
-    // const [statusMsg, setStatusMsg] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
     const [editMode, setEditMode] = useState<boolean>(false);
     const [exercise, setExercise] = useState<string>('');
     const [workoutName, setWorkoutName] = useState<string>('');
@@ -60,10 +60,8 @@ const ViewWorkout = () => {
                     console.log(data.value.workoutType);
                     console.log(data.value.exercises[0].exercise);
                 } catch (error) {
-                    // setErrorMsg(error.message[0]);
-                    setTimeout(() => {
-                        // setErrorMsg(false);
-                    }, 5000);
+                    setErrorMessage(error.message)
+
                 }
             }
 
@@ -120,10 +118,7 @@ const ViewWorkout = () => {
             if (error) throw error;
             navigate('/');
         } catch (error) {
-            // setErrorMsg(error.message);
-            setTimeout(() => {
-                // errorMsg.value = false;
-            }, 5000);
+            setErrorMessage(error.message);
         }
     };
     // Update Workout
@@ -143,32 +138,30 @@ const ViewWorkout = () => {
                 .eq("id", workoutId);
             if (error) throw error;
             setEditMode(false);
-            // setStatusMsg('"Success: Workout Updated!"');
+            setStatusMessage('"Success: Workout Updated!"');
             setTimeout(() => {
                 // setStatusMsg('');
             }, 5000);
         } catch (error) {
-            // setErrorMsg(`Error: ${error.message.toString()}`);
-            setTimeout(() => {
-                // errorMsg.value = false;
-            }, 5000);
+            setErrorMessage(`Error: ${error.message.toString()}`);
+
         }
     };
     return (<div className="max-w-screen-sm mx-auto px-4 py-10">
 
-            {/*{errorMsg ?*/}
+            {errorMessage ?
             <div
 
                 className="mb-10 p-4 rounded-md shadow-md bg-light-grey"
             >
                 <p className="text-red-600">
-                    {/*{{statusMsg}}*/}
+                    {statusMessage}
                 </p>
                 <p className="text-red-500">
-                    {/*{{errorMsg}}*/}
+                    {errorMessage}
                 </p>
             </div>
-            {/*:*/}
+            :
 
             <div>
                 <div
@@ -413,10 +406,10 @@ const ViewWorkout = () => {
                 </button> : <></>}
             </div>
 
-
+            }
         </div>
 
-    );
+            );
 
 };
 
