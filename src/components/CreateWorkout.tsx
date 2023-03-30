@@ -2,26 +2,22 @@ import React, {useState} from 'react';
 import {uid} from 'uid';
 import supabase from '../lib/supabaseClient';
 import {useNavigate} from "react-router-dom";
+import {Workout} from '../types/workout'
 
 const CreateWorkout = () => {
-    const [workoutName, setWorkoutName] = useState("");
-    const [workoutType, setWorkoutType] = useState("select-workout");
-    const [exercises, setExercises] = useState([]);
-    const [exercise, setExercise] = useState("");
-    const [sets, setSets] = useState("");
-    const [reps, setReps] = useState("");
-    const [weight, setWeight] = useState("");
-    const [cardioType, setCardioType] = useState("");
-    const [pace, setPace] = useState("");
-    const [distance, setDistance] = useState("");
-    const [duration, setDuration] = useState("");
-    const [userId, setUserId] = useState("");
+    const [workoutName, setWorkoutName] = useState<Workout>("");
+    const [workoutType, setWorkoutType] = useState<Workout>("select-workout");
+    const [exercises, setExercises] = useState<Workout>([]);
+    const [exercise, setExercise] = useState<Workout>("");
+    const [sets, setSets] = useState<Workout>("");
+    const [reps, setReps] = useState<Workout>("");
+    const [weight, setWeight] = useState<Workout>("");
+    const [cardioType, setCardioType] = useState<Workout>("");
+    const [pace, setPace] = useState<Workout>("");
+    const [distance, setDistance] = useState<Workout>("");
+    const [duration, setDuration] = useState<Workout>("");
+    const [userId, setUserId] = useState<Workout>("");
     const navigate = useNavigate();
-
-
-    const errorMsg = [];
-    const statusMsg = [];
-
 
     // add exercises
     const addExercise = () => {
@@ -58,9 +54,9 @@ const deleteExercise = (id) => {
         exercises.value = exercises.value.filter((exercise) => exercise.id !== id);
         return;
     }
-    errorMsg.value = "Error: Cannot remove, need to at least have one exercise";
+    // errorMsg.value = "Error: Cannot remove, need to at least have one exercise";
     setTimeout(() => {
-        errorMsg.value = false;
+        // errorMsg.value = false;
     }, 5000);
 };
 
