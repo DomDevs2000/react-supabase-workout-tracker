@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
     return (
+
         <div className="App min-h-full font-Poppins box-border">
             <NavBar/>
             <Router>
@@ -43,7 +44,8 @@ function App() {
                 </AuthProvider>
             </Router>
         </div>
-    );
+
+);
 }
 
 export default App;
