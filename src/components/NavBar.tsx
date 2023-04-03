@@ -25,7 +25,6 @@ const Navbar = () => {
     const { error } = await supabase.auth.signOut();
     localStorage.removeItem("sb-snturtquxvvxlltvqekf-auth-token");
     console.log("User Logged Out");
-    console.log("user logged out");
   }
 
   useEffect(() => {
