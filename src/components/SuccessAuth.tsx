@@ -20,7 +20,7 @@ const SuccessAuth = () => {
       getUserData();
     };
   }, []);
-
+console.log('success auth', user,   Object.keys(user))
   async function logOutUser() {
     const { error } = await supabase.auth.signOut();
     navigate("/");
@@ -28,7 +28,7 @@ const SuccessAuth = () => {
 
   return (
     <div>
-      {Object.keys(user).length !== 0 ? (
+      {user ? (
         <>
           <h1>Success</h1>
           <button onClick={() => logOutUser()}>Log Out</button>
