@@ -1,13 +1,14 @@
-import React, {useState} from "react";
+import React, {SetStateAction, useState} from "react";
 import {uid} from "uid";
 import supabase from "../lib/supabaseClient";
 import {useNavigate} from "react-router-dom";
-// import {Workout} from '../types/workout'
+
+
 
 const CreateWorkout = () => {
     const [workoutName, setWorkoutName] = useState<string>("");
     const [workoutType, setWorkoutType] = useState("select-workout");
-    const [exercises, setExercises] = useState([]);
+    const [exercises, setExercises] = useState<SetStateAction<any>>();
     const [exercise, setExercise] = useState<[]>([]);
     const [sets, setSets] = useState<number>();
     const [reps, setReps] = useState<number>();
@@ -16,7 +17,7 @@ const CreateWorkout = () => {
     const [pace, setPace] = useState<number>();
     const [distance, setDistance] = useState<number>();
     const [duration, setDuration] = useState<number>();
-    const [userId, setUserId] = useState<number>();
+    const [userId, setUserId] = useState('');
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [statusMessage, setStatusMessage] = useState<string>('')
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ const CreateWorkout = () => {
     // add exercises
     const addExercise = () => {
         if (workoutType === "strength") {
-            setExercises((exercises) => [
+            setExercises((exercises: []) => [
                 {
                     exerciseId: uid(),
                     exercise: exercise,
@@ -36,7 +37,7 @@ const CreateWorkout = () => {
             console.log("added strength");
             console.log(exercises);
         } else {
-            setExercises((exercises) => [
+            setExercises((exercises: []) => [
                 {
                     cardioType: cardioType,
                     exerciseId: uid(),
@@ -53,7 +54,7 @@ const CreateWorkout = () => {
     const deleteExercise = (id: number) => {
         if (exercises.length > 1) {
             exercises.value = exercises.value.filter(
-                (exercise) => exercise.id !== id
+                (exercise: any) => exercise.id !== id
             );
             return;
         }
@@ -61,7 +62,7 @@ const CreateWorkout = () => {
     };
 
     //get exercise id
-    const getId = exercises.map((item, index) => item.id);
+    const getId = exercises.map((item: any, index: any) => item.id);
 
     async function getUserId() {
         await supabase.auth.getUser().then((value) => {
@@ -97,7 +98,7 @@ const CreateWorkout = () => {
                 // workoutName.value = null;
                 // workoutType.value = "select-workout";
                 // exercises.value = [];}
-            } catch (error) {
+            } catch (error: any) {
                 console.error("error", error);
                 setErrorMessage(`Error: ${error.message}`)
             }
@@ -175,7 +176,7 @@ const CreateWorkout = () => {
                                             type="text"
                                             className="p-2 w-full text-gray-500 focus:outline-none"
                                             value={exercise}
-                                            onChange={(e) => setExercise(e.target.value)}
+                                            onChange={(e: any) => setExercise(e.target.value)}
                                         />
                                     </div>
                                     <div className="flex flex-col flex-1">
@@ -184,10 +185,10 @@ const CreateWorkout = () => {
                                         </label>
                                         <input
                                             required
-                                            type="text"
+                                            type="number"
                                             className="p-2 w-full text-gray-500 focus:outline-none"
                                             value={sets}
-                                            onChange={(e) => setSets(e.target.value)}
+                                            onChange={(e: any) => setSets(e.target.value)}
                                         />
                                     </div>
                                     <div className="flex flex-col flex-1">
@@ -196,10 +197,10 @@ const CreateWorkout = () => {
                                         </label>
                                         <input
                                             required
-                                            type="text"
+                                            type="number"
                                             className="p-2 w-full text-gray-500 focus:outline-none"
                                             value={reps}
-                                            onChange={(e) => setReps(e.target.value)}
+                                            onChange={(e: any) => setReps(e.target.value)}
                                         />
                                     </div>
                                     <div className="flex flex-col flex-1">
@@ -208,10 +209,10 @@ const CreateWorkout = () => {
                                         </label>
                                         <input
                                             required
-                                            type="text"
+                                            type="number"
                                             className="p-2 w-full text-gray-500 focus:outline-none"
                                             value={weight}
-                                            onChange={(e) => setWeight(e.target.value)}
+                                            onChange={(e: any) => setWeight(e.target.value)}
                                         />
                                     </div>
                                     <img
@@ -246,7 +247,7 @@ const CreateWorkout = () => {
                                             id="cardio-type"
                                             className="p-2 w-full text-gray-500 focus:outline-none"
                                             value={cardioType}
-                                            onChange={(e) => setCardioType(e.target.value)}
+                                            onChange={(e: any) => setCardioType(e.target.value)}
                                         >
                                             <option value="#">Select Type</option>
                                             <option value="run">Runs</option>
@@ -266,7 +267,7 @@ const CreateWorkout = () => {
                                             type="text"
                                             className="p-2 w-full text-gray-500 focus:outline-none"
                                             value={distance}
-                                            onChange={(e) => setDistance(e.target.value)}
+                                            onChange={(e: any) => setDistance(e.target.value)}
                                         />
                                     </div>
                                     <div className="flex flex-col flex-1">
@@ -281,7 +282,7 @@ const CreateWorkout = () => {
                                             type="text"
                                             className="p-2 w-full text-gray-500 focus:outline-none"
                                             value={duration}
-                                            onChange={(e) => setDuration(e.target.value)}
+                                            onChange={(e: any) => setDuration(e.target.value)}
                                         />
                                     </div>
                                     <div className="flex flex-col flex-1">
@@ -293,7 +294,7 @@ const CreateWorkout = () => {
                                             type="text"
                                             className="p-2 w-full text-gray-500 focus:outline-none"
                                             value={pace}
-                                            onChange={(e) => setPace(e.target.value)}
+                                            onChange={(e: any) => setPace(e.target.value)}
                                         />
                                     </div>
                                     <img
