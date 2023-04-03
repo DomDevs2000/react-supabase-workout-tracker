@@ -55,7 +55,7 @@ const Navbar = () => {
               </a>
             </li>
 
-            {Object.keys(user).length > 0 ? (
+            {user ? (
               <li className="cursor-pointer">
                 {" "}
                 <a
