@@ -5,10 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const ViewWorkout = () => {
   const navigate = useNavigate();
-
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [user, setUser] = useState(null);
-  const [data, setData] = useState([]);
+  const [user, setUser] = useState<any>("");
+  const [data, setData] = useState<any>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -23,7 +22,7 @@ const ViewWorkout = () => {
   const [distance, setDistance] = useState<number>();
   const [duration, setDuration] = useState<number>();
 
-  const { id } = useParams("id");
+  const { id } = useParams<string>();
   const workoutId = id;
   console.log(workoutId);
 
@@ -58,7 +57,7 @@ const ViewWorkout = () => {
           console.log(data.value.workoutName);
           console.log(data.value.workoutType);
           console.log(data.value.exercises[0].exercise);
-        } catch (error) {
+        } catch (error: any) {
           setErrorMessage(error.message);
         }
       }
@@ -82,7 +81,7 @@ const ViewWorkout = () => {
     };
   }, [dataLoaded]);
 
-  const getId = data.map((item, index) => item.id);
+  const getId = data.map((item: any, index: any) => item.id);
 
   const addExercise = () => {
     if (workoutType === "strength") {
@@ -104,17 +103,14 @@ const ViewWorkout = () => {
     });
   };
   // Delete exercise
-  const deleteExercise = (id) => {
+  const deleteExercise = (id: number) => {
     if (data.value.exercises.length > 1) {
       data.value.exercises = data.value.exercises.filter(
-        (exercise) => exercise.id !== id
+        (exercise: any) => exercise.id !== id
       );
       return;
     }
-    // errorMsg.value = "Error: Cannot remove, need to at least have one exercise";
-    setTimeout(() => {
-      // errorMsg.value = false;
-    }, 5000);
+    setErrorMessage("Cannot remove, need to at least have one exercise");
   };
   const deleteWorkout = async () => {
     try {
@@ -124,16 +120,18 @@ const ViewWorkout = () => {
         .eq("id", workoutId);
       if (error) throw error;
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       setErrorMessage(error.message);
     }
   };
   // Update Workout
   const update = async () => {
     try {
+      // @ts-ignore
       const { error } = await supabase
         .from("workouts")
         .update({
+          Update: undefined,
           workoutName: data.value.workoutName,
           exercises: [
             {
@@ -152,7 +150,7 @@ const ViewWorkout = () => {
         setEditMode(false);
         setStatusMessage('"Success: Workout Updated!"');
       }
-    } catch (error) {
+    } catch (error: any) {
       setErrorMessage(`Error: ${error.message.toString()}`);
     }
   };
@@ -311,7 +309,7 @@ const ViewWorkout = () => {
                         className="p-2 w-full text-gray-500 focus:outline-none"
                         type="text"
                         value={weight}
-                        onChange={(e) => setWeight(e.target.value)}
+                        onChange={(e: any) => setWeight(e.target.value)}
                       />
                     ) : (
                       <p>{weight}</p>
