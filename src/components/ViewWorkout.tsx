@@ -76,7 +76,7 @@ const ViewWorkout = () => {
 
             getData();
         };
-    }, []);
+    }, [data, workoutId]);
 
     useEffect(() => {
         return () => {
