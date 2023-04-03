@@ -3,8 +3,8 @@ import supabase from "../lib/supabaseClient";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const [data, setData] = useState([]);
-  const [dataLoaded, setDataLoaded] = useState(null);
+  const [data, setData] = useState<any>([]);
+  const [dataLoaded, setDataLoaded] = useState<boolean>(false);
   const [userId, setUserId] = useState<string>("");
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Home = () => {
         }
         setData(workouts);
         setDataLoaded(true);
-      } catch (error) {
+      } catch (error: any) {
         console.warn(error.message);
       }
     }
@@ -48,7 +48,7 @@ const Home = () => {
 
   // console.log(data);
 
-  const renderWorkoutCard = data.map((data) => {
+  const renderWorkoutCard = data.map((data: any) => {
     return (
       <Link
         className="flex flex-col items-center bg-light-grey p-8 shadow-md cursor-pointer"
