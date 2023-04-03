@@ -127,7 +127,6 @@ const ViewWorkout = () => {
   // Update Workout
   const update = async () => {
     try {
-      // @ts-ignore
       const { error } = await supabase
         .from("workouts")
         .update({
@@ -144,8 +143,8 @@ const ViewWorkout = () => {
         })
         .eq("id", workoutId);
       if (error) {
-        throw error;
         console.error(error);
+        throw error;
       } else {
         setEditMode(false);
         setStatusMessage('"Success: Workout Updated!"');
@@ -220,7 +219,7 @@ const ViewWorkout = () => {
                   type="text"
                   className="p-2 w-full text-gray-500 focus:outline-none"
                   value={workoutName}
-                  onChange={(e) => setWorkoutName(e.target.value)}
+                  onChange={(e:any ) => setWorkoutName(e.target.value)}
                   placeholder="Workout Name Here"
                 />
               </div>
@@ -256,7 +255,7 @@ const ViewWorkout = () => {
                         className="p-2 w-full text-gray-500 focus:outline-none"
                         type="text"
                         value={exercise}
-                        onChange={(e) => setExercise(e.target.value)}
+                        onChange={(e: any) => setExercise(e.target.value)}
                       />
                     ) : (
                       <p>{exercise}</p>
@@ -272,7 +271,7 @@ const ViewWorkout = () => {
                         className="p-2 w-full text-gray-500 focus:outline-none"
                         type="text"
                         value={sets}
-                        onChange={(e) => setSets(e.target.value)}
+                        onChange={(e: any) => setSets(e.target.value)}
                       />
                     ) : (
                       <p>{sets}</p>
@@ -289,7 +288,7 @@ const ViewWorkout = () => {
                         className="p-2 w-full text-gray-500 focus:outline-none"
                         type="text"
                         value={reps}
-                        onChange={(e) => setReps(e.target.value)}
+                        onChange={(e: any) => setReps(e.target.value)}
                       />
                     ) : (
                       <p>{reps}</p>
@@ -360,7 +359,7 @@ const ViewWorkout = () => {
                         id="cardioType"
                         className="p-2 w-full text-gray-500 focus:outline-none"
                         value={cardioType}
-                        onChange={(e) => setCardioType(e.target.value)}
+                        onChange={(e: any) => setCardioType(e.target.value)}
                       >
                         <option value="#">Select Type</option>
                         <option value="run">Runs</option>
@@ -383,7 +382,7 @@ const ViewWorkout = () => {
                         className="p-2 w-full text-gray-500 focus:outline-none"
                         type="text"
                         value={distance}
-                        onChange={(e) => setDistance(e.target.value)}
+                        onChange={(e: any) => setDistance(e.target.value)}
                       />
                     ) : (
                       <p>{distance}</p>
@@ -402,7 +401,7 @@ const ViewWorkout = () => {
                         className="p-2 w-full text-gray-500 focus:outline-none"
                         type="text"
                         value={duration}
-                        onChange={(e) => setDuration(e.target.value)}
+                        onChange={(e: any) => setDuration(e.target.value)}
                       />
                     ) : (
                       <p>{duration}</p>
@@ -418,7 +417,7 @@ const ViewWorkout = () => {
                         className="p-2 w-full text-gray-500 focus:outline-none"
                         type="text"
                         value={pace}
-                        onChange={(e) => setPace(e.target.value)}
+                        onChange={(e: any) => setPace(e.target.value)}
                       />
                     ) : (
                       <p>{pace}</p>
