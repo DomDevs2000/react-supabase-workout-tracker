@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "gen-types": "supabase gen types typescript --linked > types/supabase.ts ",
+    "gen-types": "supabase gen types typescript --linked > src/types/supabase.ts ",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
