@@ -24,7 +24,7 @@ resource "aws_s3_bucket_policy" "workout-tracker" {
 
             "Action": "s3:GetObject",
 
-            "Resource": "arn:aws:s3:::dom-devs-workout-tracker"
+            "Resource": "arn:aws:s3:::dom-devs-workout-tracker/*"
 
         }
 
