@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import supabase from "../lib/supabaseClient";
 import {uid} from "uid";
 import {useNavigate, useParams} from "react-router-dom";
+import {useAuth} from "../context/Auth";
 
 type Exercise = {
 
@@ -14,7 +15,8 @@ type TUpdate = { Update: any, workoutName: string, exercises: Exercise[] };
 const ViewWorkout = () => {
     const navigate = useNavigate();
     const [dataLoaded, setDataLoaded] = useState(false);
-    const [user, setUser] = useState<any>("");
+    // const [user, setUser] = useState<any>("");
+    const {user} = useAuth();
     const [data, setData] = useState<any>([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [statusMessage, setStatusMessage] = useState("");
@@ -39,51 +41,53 @@ const ViewWorkout = () => {
         return () => {
             async function getData() {
                 try {
-                    const {data: workouts, error} = await supabase
-                        .from("workouts")
-                        .select("*")
-                        .eq("id", workoutId);
-                    if (error) {
-                        console.error(error)
-                        throw error
-                    }
-                    data.value = workouts[0];
-                    setDataLoaded(true);
-                    console.log(data.value);
 
-                    if (data.value.workoutType === "strength") {
-                        setExercise(data.value.exercises[0].exercise);
-                        setWorkoutName(data.value.workoutName);
-                        setWorkoutType(data.value.workoutType);
-                        setReps(data.value.exercises[0].reps);
-                        setSets(data.value.exercises[0].sets);
-                        setWeight(data.value.exercises[0].weight);
+                    if (user) {
+                        const {data: workouts, error} = await supabase
+                            .from("workouts")
+                            .select("*")
+                            .eq("id", workoutId);
+                        if (error) {
+                            console.error(error)
+                            throw error
+                        }
+                        data.value = workouts[0];
+                        setDataLoaded(true);
+                        console.log(data.value);
+                        if (data.value.workoutType === "strength") {
+                            setExercise(data.value.exercises[0].exercise);
+                            setWorkoutName(data.value.workoutName);
+                            setWorkoutType(data.value.workoutType);
+                            setReps(data.value.exercises[0].reps);
+                            setSets(data.value.exercises[0].sets);
+                            setWeight(data.value.exercises[0].weight);
+                        } else {
+                            setWorkoutName(data.value.workoutName);
+                            setWorkoutName(data.value.workoutType);
+                            setCardioType(data.value.cardioType);
+                            setDuration(data.value.exercises[0].duration);
+                            setDistance(data.value.exercises[0].distance);
+                            setPace(data.value.exercises[0].pace);
+                        }
+                        console.log(data.value.workoutName);
+                        console.log(data.value.workoutType);
+                        console.log(data.value.exercises[0].exercise);
                     } else {
-                        setWorkoutName(data.value.workoutName);
-                        setWorkoutName(data.value.workoutType);
-                        setCardioType(data.value.cardioType);
-                        setDuration(data.value.exercises[0].duration);
-                        setDistance(data.value.exercises[0].distance);
-                        setPace(data.value.exercises[0].pace);
+                        alert('Error')
                     }
-                    console.log(data.value.workoutName);
-                    console.log(data.value.workoutType);
-                    console.log(data.value.exercises[0].exercise);
                 } catch (error: any) {
                     setErrorMessage(error.message);
                 }
             }
-
             getData();
         };
-    }, [data, workoutId]);
+    }, [data, user, workoutId]);
 
     useEffect(() => {
         return () => {
             async function getUser() {
                 await supabase.auth.getUser().then((value) => {
                     if (value.data?.user) {
-                        setUser(value.data.user);
                         console.log(value.data.user);
                     }
                 });
