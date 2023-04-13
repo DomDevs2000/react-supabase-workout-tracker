@@ -1,9 +1,10 @@
 import React, { SetStateAction, useState } from "react";
 import { uid } from "uid";
 import supabase from "../lib/supabaseClient";
-import { useNavigate } from "react-router-dom";
+import {useAuth} from "../context/Auth";
 
 const CreateWorkout = () => {
+  const {user} = useAuth()
   const [workoutName, setWorkoutName] = useState<string>("");
   const [workoutType, setWorkoutType] = useState("select-workout");
   const [exercises, setExercises] = useState<SetStateAction<any>>();
@@ -15,10 +16,8 @@ const CreateWorkout = () => {
   const [pace, setPace] = useState<number>();
   const [distance, setDistance] = useState<number>();
   const [duration, setDuration] = useState<number>();
-  const [userId, setUserId] = useState("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [statusMessage, setStatusMessage] = useState<string>("");
-  const navigate = useNavigate();
 
   // add exercises
   const addExercise = () => {
@@ -62,24 +61,22 @@ const CreateWorkout = () => {
   //get exercise id
   // const getId = exercises.map((item: any, index: any) => item.id);
 
-  async function getUserId() {
-    await supabase.auth.getUser().then((value) => {
-      if (value.data?.user) {
-        setUserId(value.data.user.id);
-      }
-    });
+  const getUserId = () => {
+    const userId2 = user?.id
+    console.log(userId2)
   }
 
-  getUserId();
+
   // create workout
   const createWorkout = async (e: any) => {
     e.preventDefault();
+    getUserId();
     try {
       const { data, error } = await supabase
         .from("workouts")
         .insert([
           {
-            userId: userId,
+            userId: user?.id,
             workoutName: workoutName,
             workoutType: workoutType,
             exercises: exercises,
