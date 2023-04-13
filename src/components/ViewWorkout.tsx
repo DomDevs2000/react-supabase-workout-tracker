@@ -13,10 +13,9 @@ type Exercise = {
 }
 type TUpdate = { Update: any, workoutName: string, exercises: Exercise[] };
 const ViewWorkout = () => {
+    const {user} = useAuth();
     const navigate = useNavigate();
     const [dataLoaded, setDataLoaded] = useState(false);
-    // const [user, setUser] = useState<any>("");
-    const {user} = useAuth();
     const [data, setData] = useState<any>([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [statusMessage, setStatusMessage] = useState("");
@@ -35,13 +34,11 @@ const ViewWorkout = () => {
 
     const {id} = useParams<string>();
     const workoutId = id;
-    console.log(workoutId);
 
     useEffect(() => {
         return () => {
             async function getData() {
                 try {
-
                     if (user) {
                         const {data: workouts, error} = await supabase
                             .from("workouts")
@@ -53,7 +50,6 @@ const ViewWorkout = () => {
                         }
                         data.value = workouts[0];
                         setDataLoaded(true);
-                        console.log(data.value);
                         if (data.value.workoutType === "strength") {
                             setExercise(data.value.exercises[0].exercise);
                             setWorkoutName(data.value.workoutName);
@@ -61,7 +57,7 @@ const ViewWorkout = () => {
                             setReps(data.value.exercises[0].reps);
                             setSets(data.value.exercises[0].sets);
                             setWeight(data.value.exercises[0].weight);
-                        } else {
+                        } else if (data.value.workoutType === "cardio"){
                             setWorkoutName(data.value.workoutName);
                             setWorkoutName(data.value.workoutType);
                             setCardioType(data.value.cardioType);
@@ -69,9 +65,6 @@ const ViewWorkout = () => {
                             setDistance(data.value.exercises[0].distance);
                             setPace(data.value.exercises[0].pace);
                         }
-                        console.log(data.value.workoutName);
-                        console.log(data.value.workoutType);
-                        console.log(data.value.exercises[0].exercise);
                     } else {
                         alert('Error')
                     }
@@ -83,22 +76,8 @@ const ViewWorkout = () => {
         };
     }, [data, user, workoutId]);
 
-    useEffect(() => {
-        return () => {
-            async function getUser() {
-                await supabase.auth.getUser().then((value) => {
-                    if (value.data?.user) {
-                        console.log(value.data.user);
-                    }
-                });
-            }
-
-            getUser();
-        };
-    }, [dataLoaded]);
 
     const getId = data.map((item: any, index: any) => item.id);
-    console.log('id', getId)
     const addExercise = () => {
         if (workoutType === "strength") {
             data.value.exercises.push({
@@ -169,6 +148,18 @@ const ViewWorkout = () => {
             setErrorMessage(`Error: ${error.message.toString()}`);
         }
     };
+
+    // const renderError = data.map((data:any)=> {
+    //     return(
+    //
+    //         <div className="mb-10 p-4 rounded-md shadow-md bg-light-grey">
+    //             <p className="text-red-600">{statusMessage}</p>
+    //             <p className="text-red-500">{errorMessage}</p>
+    //         </div>
+    //
+    //     )
+    // })
+
     return (
         <div className="max-w-screen-sm mx-auto px-4 py-10">
             {errorMessage ? (
@@ -255,6 +246,7 @@ const ViewWorkout = () => {
                                 <div
                                     className="flex flex-col gap-x-6 gap-y-2 relative sm:flex-row"
                                     //    data.map exercises => exercises.exercise
+
                                 >
                                     <div className="flex flex-2 flex-col md:w-1/3">
                                         <label

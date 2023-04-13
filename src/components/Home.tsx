@@ -1,107 +1,90 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import supabase from "../lib/supabaseClient";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {useAuth} from "../context/Auth";
 
 const Home = () => {
-  const [data, setData] = useState<any>([]);
-  const [dataLoaded, setDataLoaded] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string>("");
+    const {user} = useAuth()
+    const [data, setData] = useState<any>([]);
+    const [dataLoaded, setDataLoaded] = useState<boolean>(false);
 
-  useEffect(() => {
-    async function getUserId() {
-      await supabase.auth.getUser().then((value) => {
-        if (value.data?.user) {
-          setUserId(value.data.user.id);
-          // console.log(value.data.user);
+
+    useEffect(() => {
+        async function getWorkouts() {
+            try {
+
+                const {data: workouts, error} = await supabase
+                    .from("workouts")
+                    .select("*")
+                    .eq("userId", user?.id);
+                if (error) {
+                    throw error;
+                }
+                setData(workouts);
+                setDataLoaded(true);
+            } catch (error: any) {
+                console.warn(error.message);
+            }
         }
-      });
-    }
 
-    getUserId();
-  }, [dataLoaded]);
+        getWorkouts();
+    }, [user]);
 
-  console.log(userId);
 
-  useEffect(() => {
-    async function getWorkouts() {
-      try {
-        console.log(
-          "test user",
-          userId,
-          userId.toString() === "5c665e10-2a91-412d-8ca4-b51d46c6149e"
-        );
-        const { data: workouts, error } = await supabase
-          .from("workouts")
-          .select("*")
-          .eq("userId", userId);
-        if (error) {
-          throw error;
-        }
-        setData(workouts);
-        setDataLoaded(true);
-      } catch (error: any) {
-        console.warn(error.message);
-      }
-    }
-    getWorkouts();
-  }, [userId]);
-
-  // console.log(data);
-
-  const renderWorkoutCard = data.map((data: any) => {
-    return (
-      <Link
-        className="flex flex-col items-center bg-light-grey p-8 shadow-md cursor-pointer"
-        to={`/workout/${data.id}`}
-      >
-        {data.workoutType === "cardio" ? (
-          <img
-            src={require("../assets/images/running-light.png")}
-            className="h-24 w-auto"
-            alt=""
-          />
-        ) : (
-          <img
-            src={require("../assets/images/dumbbell-light.png")}
-            className="h-24 w-auto"
-            alt=""
-          />
-        )}
-
-        <p className="mt-6 py-1 px-3 text-xs text-white bg-red-600 shadow-md rounded-lg">
-          {data.workoutType}
-        </p>
-
-        <h1 className="mt-8 mb-2 text-center text-xl text-red-600">
-          {data.workoutName}
-        </h1>
-      </Link>
-    );
-  });
-
-  return (
-    <>
-      <div className="container mt-10 px-4">
-        {data.length === 0 ? (
-          <div className="w-full flex flex-col items-center">
-            <h1 className="text-2xl">Looks empty here...</h1>
+    const renderWorkoutCard = data.map((data: any) => {
+        return (
             <Link
-              className="mt-6 py-2 px-6 rounded-sm  text-sm
+                className="flex flex-col items-center bg-light-grey p-8 shadow-md cursor-pointer"
+                to={`/workout/${data.id}`}
+            >
+                {data.workoutType === "cardio" ? (
+                    <img
+                        src={require("../assets/images/running-light.png")}
+                        className="h-24 w-auto"
+                        alt=""
+                    />
+                ) : (
+                    <img
+                        src={require("../assets/images/dumbbell-light.png")}
+                        className="h-24 w-auto"
+                        alt=""
+                    />
+                )}
+
+                <p className="mt-6 py-1 px-3 text-xs text-white bg-red-600 shadow-md rounded-lg">
+                    {data.workoutType}
+                </p>
+
+                <h1 className="mt-8 mb-2 text-center text-xl text-red-600">
+                    {data.workoutName}
+                </h1>
+            </Link>
+        );
+    });
+
+    return (
+        <>
+            <div className="container mt-10 px-4">
+                {dataLoaded ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {renderWorkoutCard}
+                    </div>
+                ) : (
+                    <div className="w-full flex flex-col items-center">
+                        <h1 className="text-2xl">Looks empty here...</h1>
+                        <Link
+                            className="mt-6 py-2 px-6 rounded-sm  text-sm
       text-white bg-red-600 duration-200 border-solid
       border-2 border-transparent hover:border-red-600 hover:bg-white
       hover:text-red-600"
-              to={"/create"}
-            >
-              Create Workout
-            </Link>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {renderWorkoutCard}
-          </div>
-        )}
-      </div>
-    </>
-  );
+                            to={"/create"}
+                        >
+                            Create Workout
+                        </Link>
+                    </div>
+                )}
+            </div>
+        </>
+    );
 };
 export default Home;
