@@ -13,9 +13,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
     return (
         <div className="App min-h-full font-Poppins box-border">
-            <NavBar/>
             <Router>
+
                 <AuthProvider>
+                    <NavBar/>
                     <Routes>
                         <Route
                             path="/"
