@@ -18,6 +18,7 @@ const ViewWorkout = () => {
     const [dataLoaded, setDataLoaded] = useState(false);
     const [data, setData] = useState<any>([]);
     const [errorMessage, setErrorMessage] = useState("");
+
     const [statusMessage, setStatusMessage] = useState("");
     const [editMode, setEditMode] = useState<boolean>(false);
     const [exercise, setExercise] = useState("");
@@ -30,51 +31,96 @@ const ViewWorkout = () => {
     const [pace, setPace] = useState<number>();
     const [distance, setDistance] = useState<number>();
     const [duration, setDuration] = useState<number>();
+    const [exercises, setExercises] = useState([
+        {
+            exercise: exercise,
+            workoutType: workoutType,
+            workoutName: workoutName,
+            sets: sets,
+            reps: reps,
+            weight: weight,
+            pace: pace,
+            distance: distance,
+            duration: duration,
+            error: errorMessage,
+            status: statusMessage
+        }
+
+    ])
 
 
     const {id} = useParams<string>();
     const workoutId = id;
-
-    useEffect(() => {
-        return () => {
-            async function getData() {
-                try {
-                    if (user) {
-                        const {data: workouts, error} = await supabase
-                            .from("workouts")
-                            .select("*")
-                            .eq("id", workoutId);
-                        if (error) {
-                            console.error(error)
-                            throw error
-                        }
-                        data.value = workouts[0];
-                        setDataLoaded(true);
-                        if (data.value.workoutType === "strength") {
-                            setExercise(data.value.exercises[0].exercise);
-                            setWorkoutName(data.value.workoutName);
-                            setWorkoutType(data.value.workoutType);
-                            setReps(data.value.exercises[0].reps);
-                            setSets(data.value.exercises[0].sets);
-                            setWeight(data.value.exercises[0].weight);
-                        } else if (data.value.workoutType === "cardio"){
-                            setWorkoutName(data.value.workoutName);
-                            setWorkoutName(data.value.workoutType);
-                            setCardioType(data.value.cardioType);
-                            setDuration(data.value.exercises[0].duration);
-                            setDistance(data.value.exercises[0].distance);
-                            setPace(data.value.exercises[0].pace);
-                        }
-                    } else {
-                        alert('Error')
-                    }
-                } catch (error: any) {
-                    setErrorMessage(error.message);
-                }
+    async function getWorkoutData() {
+        try {
+            const {data: workouts, error} = await supabase
+                .from("workouts")
+                .select("*")
+                .eq("id", workoutId);
+            if (error) {
+                console.error(error)
+                throw error
             }
-            getData();
-        };
-    }, [data, user, workoutId]);
+            data.value = workouts[0];
+            setDataLoaded(true);
+            if (data.value.workoutType === "strength") {
+                setExercise(data.value.exercises[0].exercise);
+                setWorkoutName(data.value.workoutName);
+                setWorkoutType(data.value.workoutType);
+                setReps(data.value.exercises[0].reps);
+                setSets(data.value.exercises[0].sets);
+                setWeight(data.value.exercises[0].weight);
+            } else
+                setWorkoutName(data.value.workoutName);
+            setWorkoutName(data.value.workoutType);
+            setCardioType(data.value.cardioType);
+            setDuration(data.value.exercises[0].duration);
+            setDistance(data.value.exercises[0].distance);
+            setPace(data.value.exercises[0].pace);
+        } catch (error: any) {
+            setErrorMessage(error.message);
+        }
+    }
+    getWorkoutData();
+    // useEffect(() => {
+    //     return () => {
+    //         async function getData() {
+    //             try {
+    //
+    //                 const {data: workouts, error} = await supabase
+    //                     .from("workouts")
+    //                     .select("*")
+    //                     .eq("id", workoutId);
+    //                 if (error) {
+    //                     console.error(error)
+    //                     throw error
+    //                 }
+    //                 data.value = workouts[0];
+    //                 setDataLoaded(true);
+    //                 if (data.value.workoutType === "strength") {
+    //                     setExercise(data.value.exercises[0].exercise);
+    //                     setWorkoutName(data.value.workoutName);
+    //                     setWorkoutType(data.value.workoutType);
+    //                     setReps(data.value.exercises[0].reps);
+    //                     setSets(data.value.exercises[0].sets);
+    //                     setWeight(data.value.exercises[0].weight);
+    //                 } else
+    //                     setWorkoutName(data.value.workoutName);
+    //                 setWorkoutName(data.value.workoutType);
+    //                 setCardioType(data.value.cardioType);
+    //                 setDuration(data.value.exercises[0].duration);
+    //                 setDistance(data.value.exercises[0].distance);
+    //                 setPace(data.value.exercises[0].pace);
+    //
+    //
+    //             } catch (error: any) {
+    //                 setErrorMessage(error.message);
+    //             }
+    //         }
+    //
+    //         getData();
+    //     };
+    // }, [data, user, workoutId]);
 
 
     const getId = data.map((item: any, index: any) => item.id);
@@ -149,23 +195,22 @@ const ViewWorkout = () => {
         }
     };
 
-    // const renderError = data.map((data:any)=> {
-    //     return(
-    //
-    //         <div className="mb-10 p-4 rounded-md shadow-md bg-light-grey">
-    //             <p className="text-red-600">{statusMessage}</p>
-    //             <p className="text-red-500">{errorMessage}</p>
-    //         </div>
-    //
-    //     )
-    // })
+    const renderErrorMessage = exercises.map((error: any) => {
+        return (
+            <>
+                <p className="text-red-600">{errorMessage}</p>
+
+            </>
+
+        )
+    })
+
 
     return (
         <div className="max-w-screen-sm mx-auto px-4 py-10">
             {errorMessage ? (
                 <div className="mb-10 p-4 rounded-md shadow-md bg-light-grey">
-                    <p className="text-red-600">{statusMessage}</p>
-                    <p className="text-red-500">{errorMessage}</p>
+                    {renderErrorMessage}
                 </div>
             ) : (
                 <div>
@@ -230,9 +275,9 @@ const ViewWorkout = () => {
                             </div>
                         ) : (
                             <div className="w-full mt-6">
-                                <h1 className="text-red-600 text-2xl text-center">
-                                    {workoutName}
-                                </h1>
+
+                                {/*{renderWorkoutName}*/}
+
                             </div>
                         )}
                     </div>
@@ -242,6 +287,7 @@ const ViewWorkout = () => {
       bg-light-grey shadow-md"
                     >
                         {workoutType === "strength" ? (
+
                             <div className="flex flex-col gap-y-4 w-full">
                                 <div
                                     className="flex flex-col gap-x-6 gap-y-2 relative sm:flex-row"

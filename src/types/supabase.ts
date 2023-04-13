@@ -1,3 +1,5 @@
+import {TExercise} from "../components/ViewWorkout";
+
 export type Json =
   | string
   | number
@@ -63,12 +65,12 @@ export interface Database {
       workouts: {
         Row: {
           created_at: string | null
-          exercises: Json
+          exercises: TExercise[]
           id: number
           updated_at: string | null
           userId: string | null
-          workoutName: string | null
-          workoutType: string | null
+          workoutName: string
+          workoutType: string
         }
         Insert: {
           created_at?: string | null
