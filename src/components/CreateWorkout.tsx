@@ -1,10 +1,10 @@
 import React, { SetStateAction, useState } from "react";
 import { uid } from "uid";
 import supabase from "../lib/supabaseClient";
-import {useAuth} from "../context/Auth";
+import { useAuth } from "../context/Auth";
 
 const CreateWorkout = () => {
-  const {user} = useAuth()
+  const { user } = useAuth();
   const [workoutName, setWorkoutName] = useState<string>("");
   const [workoutType, setWorkoutType] = useState("select-workout");
   const [exercises, setExercises] = useState<SetStateAction<any>>();
@@ -62,10 +62,9 @@ const CreateWorkout = () => {
   // const getId = exercises.map((item: any, index: any) => item.id);
 
   const getUserId = () => {
-    const userId2 = user?.id
-    console.log(userId2)
-  }
-
+    const userId2 = user?.id;
+    console.log(userId2);
+  };
 
   // create workout
   const createWorkout = async (e: any) => {
