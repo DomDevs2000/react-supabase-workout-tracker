@@ -58,3 +58,8 @@ resource "aws_s3_bucket_website_configuration" "bucket-config" {
     }
   }
 }
+
+resource "aws_s3_bucket_metric" "example-entire-bucket" {
+  bucket = aws_s3_bucket.workout-tracker.id
+  name   = "EntireBucket"
+}
