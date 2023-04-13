@@ -94,7 +94,7 @@ const ViewWorkout = () => {
     }, [dataLoaded]);
 
     const getId = data.map((item: any, index: any) => item.id);
-    console.log('id',getId)
+    console.log('id', getId)
     const addExercise = () => {
         if (workoutType === "strength") {
             data.value.exercises.push({
@@ -178,34 +178,32 @@ const ViewWorkout = () => {
                         className="flex flex-col items-center p-8 rounded-md shadow-md
       bg-light-grey relative"
                     >
-                        {user ? (
-                            <div className="flex absolute left-2 top-2 gap-x-2">
-                                <div
-                                    className="h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
+
+
+                        <div className="flex absolute left-2 top-2 gap-x-2">
+                            <div
+                                className="h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
         bg-red-600 shadow-lg"
-                                    onClick={() => setEditMode(true)}
-                                >
-                                    <img
-                                        className="h-3.5 w-auto"
-                                        src={require("../assets/images/pencil-light.png")}
-                                        alt=""
-                                    />
-                                </div>
-                                <div
-                                    onClick={() => deleteWorkout()}
-                                    className="h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
-                        bg-red-600 shadow-lg"
-                                >
-                                    <img
-                                        className="h-3.5 w-auto"
-                                        src={require("../assets/images/trash-light.png")}
-                                        alt=""
-                                    />
-                                </div>
+                                onClick={() => setEditMode(true)}
+                            >
+                                <img
+                                    className="h-3.5 w-auto"
+                                    src={require("../assets/images/pencil-light.png")}
+                                    alt=""
+                                />
                             </div>
-                        ) : (
-                            <></>
-                        )}
+                            <div
+                                onClick={() => deleteWorkout()}
+                                className="h-7 w-7 rounded-full flex justify-center items-center cursor-pointer
+                        bg-red-600 shadow-lg"
+                            >
+                                <img
+                                    className="h-3.5 w-auto"
+                                    src={require("../assets/images/trash-light.png")}
+                                    alt=""
+                                />
+                            </div>
+                        </div>
                         {workoutType === "cardio" ? (
                             <img
                                 className="h-24 w-auto"
