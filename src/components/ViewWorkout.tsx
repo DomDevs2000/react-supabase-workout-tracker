@@ -1,4 +1,4 @@
-import React, {SetStateAction, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import supabase from "../lib/supabaseClient";
 import {uid} from "uid";
 import {useNavigate, useParams} from "react-router-dom";
