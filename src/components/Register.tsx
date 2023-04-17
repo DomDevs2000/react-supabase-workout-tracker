@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabase from "../lib/supabaseClient";
+import {Helmet} from "react-helmet";
 
 const Register = () => {
   const [email, setEmail] = useState<string>("");
@@ -40,6 +41,9 @@ const Register = () => {
 
   return (
     <div className="max-w-screen-sm mx-auto px-4 py-10">
+      <Helmet>
+        <title> Register </title>
+      </Helmet>
       <div className="mb-10 p-4 rounded-md bg-light-grey shadow-lg">
         <p className="text-red-500">{errorMessage}</p>
       </div>

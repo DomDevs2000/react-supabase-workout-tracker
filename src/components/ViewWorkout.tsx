@@ -3,6 +3,7 @@ import supabase from "../lib/supabaseClient";
 import {uid} from "uid";
 import {useNavigate, useParams} from "react-router-dom";
 import {useAuth} from "../context/Auth";
+import {Helmet} from "react-helmet";
 
 type Exercise = {
     exercise: any;
@@ -140,6 +141,9 @@ const ViewWorkout = () => {
 
     return (
         <div className="max-w-screen-sm mx-auto px-4 py-10">
+            <Helmet>
+                <title> View Workout </title>
+            </Helmet>
             {errorMessage ? (
                 <div className="mb-10 p-4 rounded-md shadow-md bg-light-grey">
                     <p className="text-red-600">{statusMessage}</p>

@@ -2,6 +2,7 @@ import React, { SetStateAction, useState } from "react";
 import { uid } from "uid";
 import supabase from "../lib/supabaseClient";
 import { useAuth } from "../context/Auth";
+import {Helmet} from "react-helmet";
 
 const CreateWorkout = () => {
   const { user } = useAuth();
@@ -104,6 +105,9 @@ const CreateWorkout = () => {
   };
   return (
     <div className="max-w-screen-md mx-auto px-4 py-10">
+      <Helmet>
+        <title> Create Workout </title>
+      </Helmet>
       {statusMessage ? (
         <div className="mb-10 p-4 bg-light-grey rounded-md shadow-lg">
           <p className="text-at-light-green">{statusMessage}</p>

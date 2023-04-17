@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import supabase from "../lib/supabaseClient";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/Auth";
+import {Helmet} from 'react-helmet'
 
 const Home = () => {
   const { user } = useAuth();
@@ -61,6 +62,9 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+      <title> Home </title>
+      </Helmet>
       <div className="container mt-10 px-4">
         {dataLoaded ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
