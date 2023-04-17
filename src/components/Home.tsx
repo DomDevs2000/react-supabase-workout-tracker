@@ -15,7 +15,7 @@ const Home = () => {
         const { data: workouts, error } = await supabase
           .from("workouts")
           .select("*")
-          .eq("userId", user?.id);
+          .eq("userId", user?.id).order('created_at', {ascending: false});
         if (error) {
           throw error;
         }
