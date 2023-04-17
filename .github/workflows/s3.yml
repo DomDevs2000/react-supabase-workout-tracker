@@ -15,8 +15,9 @@ jobs:
       - name: Install Dependencies And Run npm build
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 19
       - run: npm ci
+      - run: npm run build
 
 
       - name: Configure AWS Credentials
@@ -27,4 +28,4 @@ jobs:
           aws-region: eu-west-2
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync s3://${{ secrets.AWS_BUCKET_NAME }} . --delete
+        run: aws s3 sync build s3://${{ secrets.AWS_BUCKET_NAME }}  --delete
