@@ -1,4 +1,4 @@
-name: Upload Website
+name: Deploy To AWS S3
 
 on:
   push:
@@ -12,6 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Install Dependencies And Run npm build
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm run build
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -20,4 +27,4 @@ jobs:
           aws-region: eu-west-2
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./public/ s3://${{ secrets.AWS_BUCKET_NAME }} --delete
+        run: aws s3 sync build s3://${{ secrets.AWS_BUCKET_NAME }} --delete
