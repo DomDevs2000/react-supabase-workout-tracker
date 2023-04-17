@@ -14,7 +14,6 @@ type TUpdate = { Update: any; workoutName: string; exercises: Exercise[] };
 const ViewWorkout = () => {
     const {user} = useAuth();
     const navigate = useNavigate();
-    const [dataLoaded, setDataLoaded] = useState(false);
     const [data, setData] = useState<any>([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [statusMessage, setStatusMessage] = useState("");
@@ -44,7 +43,6 @@ const ViewWorkout = () => {
                 throw error;
             }
             data.value = workouts[0];
-            setDataLoaded(true);
             if (data.value.workoutType === "strength") {
                 setExercise(data.value.exercises[0].exercise);
                 setWorkoutName(data.value.workoutName);
