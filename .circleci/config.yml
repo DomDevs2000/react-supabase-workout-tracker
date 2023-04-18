@@ -7,7 +7,7 @@ jobs:
       - image: cimg/python:3.10
     steps:
       - checkout
-      - run: mkdir bucket && echo "lorem ipsum" > bucket/build_asset.txt
+      - run: npm install && run build
       - aws-s3/sync:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
@@ -16,7 +16,7 @@ jobs:
           to: s3://${AWS_S3_BUCKET}
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: bucket/build_asset.txt
+          from: ./build
           to: s3://${AWS_S3_BUCKET}
 workflows:
   s3-deploy:
