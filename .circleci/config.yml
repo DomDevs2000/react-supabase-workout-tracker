@@ -7,7 +7,18 @@ jobs:
       - image: cimg/python:3.10
     steps:
       - checkout
-      - run: npm install && run build
+      - - node/install-packages:
+            pkg-manager: npm
+              - run:
+                  command: npm run test
+                  name: Run tests
+              - run:
+                  command: npm run build
+                  name: Build app
+              - persist_to_workspace:
+                  root: ~/project
+                  paths:
+                    - .
       - aws-s3/sync:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
