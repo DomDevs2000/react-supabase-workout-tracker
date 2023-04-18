@@ -5,9 +5,10 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/node:16.6
+      - image: cimg/node:19.9.0
     steps:
       - checkout
+      - run: node --version
       - node/install-packages:
           pkg-manager: npm
       - run:
