@@ -37,7 +37,12 @@ resource "aws_s3_bucket_acl" "bucket-acl" {
   bucket = aws_s3_bucket.workout-tracker.id
   acl    = "public-read"
 }
-
+resource "aws_s3_bucket_versioning" "bucket_versioning" {
+  bucket = aws_s3_bucket.workout-tracker.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
 resource "aws_s3_bucket_website_configuration" "bucket-config" {
   bucket = aws_s3_bucket.workout-tracker.id
 
