@@ -1,14 +1,15 @@
 version: 2.1
 orbs:
   aws-s3: circleci/aws-s3@3.1
+  node: circleci/node@5.0.2
 jobs:
   build:
     docker:
       - image: cimg/python:3.10
     steps:
       - checkout
-      -  node/install-packages:
-            pkg-manager: npm
+      - node/install-packages:
+          pkg-manager: npm
       - run:
           command: npm run test
           name: Run tests
