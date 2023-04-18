@@ -24,7 +24,7 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          from: bucket
+          from: ./build
           to: s3://${AWS_S3_BUCKET}
       - aws-s3/copy:
           arguments: '--dryrun'
