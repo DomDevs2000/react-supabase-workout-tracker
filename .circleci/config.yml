@@ -14,10 +14,6 @@ jobs:
       - run:
           command: npm run build
           name: Build app
-      - persist_to_workspace:
-          root: ../react-supabase-workout-tracker
-          paths:
-            - .
       - aws-s3/sync:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-region: AWS_REGION
