@@ -4,6 +4,8 @@ orbs:
   node: circleci/node@5.0.2
 jobs:
   build:
+    docker:
+      - image: cimg/node:16.6
     steps:
       - checkout
       - node/install-packages:
