@@ -1,55 +1,27 @@
-version: 2.1
-
+version: '2.1'
+orbs:
+  aws-s3: circleci/aws-s3@3.1
 jobs:
   build:
-    filters:
-      branches:
-        only:
-          - main
-    machine:
-      image: ubuntu-2004:202010-01
+    docker:
+      - image: cimg/python:3.10
     steps:
       - checkout
-      - run:
-          name: Installing AWS CLI
-          command: |
-            sudo apt-get update
-            sudo apt install python3-pip
-            sudo pip3 install awsebcli --upgrade
-      - run: cd ./src && npm install && npm run build
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  test:
-    machine:
-      image: ubuntu-2004:202010-01
-    steps:
-      - attach_workspace:
-          at: .
-      - checkout
-      - run: cd ./src && npm run test
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  deploy:
-    machine:
-      image: ubuntu-2004:202010-01
-    steps:
-      - attach_workspace:
-          at: .
-      - checkout
-      - run: aws s3 sync ./build s3://dom-devs-workout-tracker
-
-
+      - run: mkdir bucket && echo "lorem ipsum" > bucket/build_asset.txt
+      - aws-s3/sync:
+          arguments: |
+            --acl public-read \
+            --cache-control "max-age=86400"
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-region: AWS_REGION
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          from: bucket
+          to: s3://dom-devs-workout-tracker
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from: bucket/build_asset.txt
+          to: s3://dom-devs-workout-tracker
 workflows:
-  build_test_deploy:
+  s3-example:
     jobs:
       - build
-      - test:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - test
