@@ -1,83 +1,36 @@
-# Getting Started with Create React App
+View This Project [Live](https://d8rrjwp3y8cru.cloudfront.net/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+View This Project In [GitHub](https://www.github.com/DomDevs2000/react-supabase-workout-tracker)
 
-## Available Scripts
+# What is this project about?
 
-In the project directory, you can run:
+Created a web application that allows users to track workouts that can be viewed, edited and deleted.
+Functionality includes account and workout creation for strength and cardio training with data such as sets, reps,
+weight, distance and time.
+Current roadmap includes converting the project to React Native,so it can be used as a native mobile application
+available on the Apple and Android app stores.
+Deployed to an AWS S3 bucket created with Terraform and Docker, efficient CI/CD pipeline achieved via CircleCI.
 
-### `npm start`
+## Why did I decide to create this project?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+My initial idea was to create a modern responsive website that allows users to track their workouts as well as edit and
+delete previous ones.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Why did I decide to use the technologies/languages that I did?
 
-### `npm test`
+I decided to use [React](https://www.reactjs.org) for this project as I initially designed a modular website with a need
+for multiple components being implemented and interchanged based on the page content. Using React Hooks such as useState
+and useEffect, I could save data and edit previously stored data in a PostgreSQL database when the page component needs
+it.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more
-information.
+I decided to use [TailwindCSS](https://tailwindcss.com/) due to it being easy to implement into and use in any
+application. By
+using Tailwind I learnt about mobile first design principles and adapting responsiveness to different screen sizes.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will
-remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right
-into your project so you have full control over them. All of the commands except `eject` will still work, but they will
-point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you
-shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't
-customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in
-the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved
-here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I chose [Terraform](https://www.terraform.io/) to learn Infrastructure as Code (IaC) as it offers a user-friendly Domain Specific Language (DSL)
+called HCL (HashiCorp Configuration Language) for creating cloud infrastructure. This makes it accessible for
+non-development teams such as operations who can use it without knowing a programming language. With the Terraform CLI,
+pushing infrastructure changes to AWS was simple and straightforward. As this was a React application, I decided to
+create an S3 bucket to store the app files as it is secure, scalable and low cost. I used CloudFront as the CDN to
+deliver the website securely, by design, delivering data out of CloudFront can be more cost-effective than delivering it
+from S3. 
